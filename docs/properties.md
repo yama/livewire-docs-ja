@@ -1,3 +1,7 @@
+---
+title: プロパティ
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/properties.md -->
 Livewireのコンポーネント内でデータを保持・管理するのが「プロパティ」です。プロパティはコンポーネントクラスのpublicプロパティとして定義され、サーバー・クライアントの両方からアクセス・変更できます。
 

@@ -1,4 +1,7 @@
-<!-- filepath: /home/yamamoto/oss/translations/livewire/docs/wire-click.md -->
+---
+title: wire:click ディレクティブ
+---
+
 Livewireでは、ページ上の特定の要素がクリックされたときにコンポーネントのメソッド（アクション）を呼び出すためのシンプルなディレクティブ `wire:click` を提供しています。
 
 例えば、以下の `ShowInvoice` コンポーネントを考えてみましょう。

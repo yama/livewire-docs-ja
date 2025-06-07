@@ -1,3 +1,7 @@
+---
+title: wire:show ディレクティブ
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/wire-show.md -->
 Livewireの`wire:show`ディレクティブを使えば、式の結果に応じて要素の表示・非表示を簡単に切り替えられます。
 

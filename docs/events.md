@@ -1,3 +1,7 @@
+---
+title: イベント
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/events.md -->
 イベントをトリガーするには、コンポーネント内のどこからでも `dispatch()` メソッドを使い、ページ上の他のコンポーネントからそのイベントをリッスンできます。
 

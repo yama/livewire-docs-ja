@@ -1,3 +1,7 @@
+---
+title: アクション
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/actions.md -->
 Livewireのアクションは、ボタンのクリックやフォーム送信など、フロントエンドの操作によってコンポーネント内のメソッドを呼び出す仕組みです。これにより、ブラウザから直接PHPメソッドを呼び出す感覚で開発でき、アプリケーションのロジックに集中しながら、フロントエンドとバックエンドをつなぐ煩雑なコードを書く必要がなくなります。
 
@@ -1027,40 +1031,3 @@ class BrowsePosts extends Component
     }
 }
 ```
-
-<!--
-## ミドルウェアの適用
-
-デフォルトでは、Livewireは、初回ページロードリクエストで適用された認証および認可関連のミドルウェアを、後続のリクエストでも再適用します。
-
-例えば、コンポーネントが`auth`ミドルウェアで割り当てられたルート内で読み込まれ、ユーザーのセッションが終了したとします。ユーザーが別のアクションをトリガーすると、`auth`ミドルウェアが再適用され、エラーが表示されます。
-
-特定のミドルウェアを特定のアクションに適用したい場合は、`#[Middleware]`属性を使用して適用できます。例えば、投稿を作成するアクションに`LogPostCreation`ミドルウェアを適用することができます。
-
-```php
-<?php
-
-namespace App\Livewire;
-
-use App\Http\Middleware\LogPostCreation;
-use Livewire\Component;
-
-class CreatePost extends Component
-{
-    public $title;
-
-    public $content;
-
-    #[Middleware(LogPostCreation::class)] // [tl! highlight]
-    public function save()
-    {
-        // 投稿を作成する...
-    }
-
-    // ...
-}
-```
-
-これで、`LogPostCreation`ミドルウェアは`createPost`アクションにのみ適用され、新しい投稿が作成されるときだけアクティビティがログに記録されます。
-
--->

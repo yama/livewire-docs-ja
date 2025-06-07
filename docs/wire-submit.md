@@ -1,3 +1,7 @@
+---
+title: wire:submit ディレクティブ
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/wire-submit.md -->
 Livewireでは、`wire:submit`ディレクティブを使うことでフォーム送信を簡単に処理できます。`<form>`要素に`wire:submit`を追加すると、Livewireが送信イベントを受け取り、ブラウザのデフォルト動作を防いだ上で、任意のLivewireコンポーネントメソッドを呼び出します。
 

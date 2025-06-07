@@ -1,3 +1,7 @@
+---
+title: wire:poll ディレクティブ
+---
+
 Webアプリケーションで「ポーリング」とは、サーバーに定期的にリクエストを送り、最新情報を取得する手法です。より高度な技術（[WebSockets](/docs/events#real-time-events-using-laravel-echo)など）を使わずに、ページの内容を最新の状態に保つシンプルな方法です。
 
 ## 基本的な使い方

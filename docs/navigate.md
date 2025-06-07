@@ -1,3 +1,7 @@
+---
+title: ナビゲーション
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/navigate.md -->
 多くの最新Webアプリケーションは「シングルページアプリケーション（SPA）」として構築されています。これらのアプリケーションでは、各ページの表示時にブラウザ全体のリロードが不要となり、JavaScriptやCSSアセットを毎回再ダウンロードする手間を省くことができます。
 

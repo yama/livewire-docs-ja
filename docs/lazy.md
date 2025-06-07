@@ -1,3 +1,7 @@
+---
+title: 遅延（Lazy）
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/lazy.md -->
 Livewireを使うと、初回のページ読み込みを遅くしてしまうコンポーネントを遅延読み込み（レイジーロード）できます。
 

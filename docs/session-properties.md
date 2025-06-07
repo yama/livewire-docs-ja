@@ -1,3 +1,7 @@
+---
+title: セッションプロパティ
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/session-properties.md -->
 Livewireでは、`#[Session]`属性を使うことで、プロパティの値をページのリフレッシュや遷移後も簡単に保持できます。
 

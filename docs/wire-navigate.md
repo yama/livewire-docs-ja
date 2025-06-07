@@ -1,3 +1,7 @@
+---
+title: wire:navigate ディレクティブ
+---
+
 Livewireの `wire:navigate` 機能を使うと、ページ遷移が非常に高速になり、SPAのような体験をユーザーに提供できます。
 
 このページは `wire:navigate` ディレクティブの簡単なリファレンスです。より詳しい解説は [LivewireのNavigate機能のページ](/docs/navigate) をご覧ください。

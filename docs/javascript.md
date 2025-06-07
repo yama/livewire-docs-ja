@@ -1,3 +1,7 @@
+---
+title: JavaScript 連携
+---
+
 ## LivewireコンポーネントでJavaScriptを使う
 
 LivewireやAlpineには、HTML内で動的なコンポーネントを構築するための多くのユーティリティが用意されていますが、時にはHTMLから離れて、コンポーネント用に純粋なJavaScriptを実行したい場面もあります。Livewireの`@script`および`@assets`ディレクティブを使えば、こうした処理を予測可能かつ保守しやすい方法で実現できます。

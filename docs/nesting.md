@@ -1,4 +1,7 @@
-<!-- filepath: /home/yamamoto/oss/translations/livewire/docs/nesting.md -->
+---
+title: ネスト
+---
+
 Livewireでは、親コンポーネントの中にさらにLivewireコンポーネントをネストして配置できます。この機能は非常に強力で、アプリケーション全体で共有されるLivewireコンポーネント内の振る舞いを再利用・カプセル化することができます。
 
 > [!warning] Livewireコンポーネントが本当に必要か再考しましょう

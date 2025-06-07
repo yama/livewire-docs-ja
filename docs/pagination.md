@@ -1,4 +1,7 @@
-<!-- filepath: /home/yamamoto/oss/translations/livewire/docs/pagination.md -->
+---
+title: ページネーション
+---
+
 Laravelのページネーション機能を使うと、データの一部だけを取得し、ユーザーがその結果の「ページ」を移動しながら閲覧できるようになります。
 
 Laravelのページネーターは静的なアプリケーション向けに設計されているため、Livewireを使わない通常のアプリケーションでは、ページを移動するたびに新しいURL（例: `?page=2`）へのブラウザ遷移が発生します。

@@ -1,3 +1,7 @@
+---
+title: wire:stream ディレクティブ
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/wire-stream.md -->
 Livewireでは、`wire:stream` APIを使ってリクエスト完了前にコンテンツをWebページへストリーミングできます。AIチャットボットのように、生成されるレスポンスをリアルタイムで表示したい場合に非常に便利です。
 

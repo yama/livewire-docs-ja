@@ -1,3 +1,7 @@
+---
+title: コンポーネント
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/components.md -->
 Livewireアプリケーションの「コンポーネント」は、UIを構成する基本的な単位です。コンポーネントは状態と振る舞いを組み合わせて、フロントエンドで再利用可能なUIパーツを作成します。ここでは、コンポーネントの作成とレンダリングの基本について解説します。
 

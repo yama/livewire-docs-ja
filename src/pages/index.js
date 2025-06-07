@@ -6,6 +6,8 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
+import { useEffect } from 'react';
+import { useHistory } from '@docusaurus/router';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -29,14 +31,9 @@ function HomepageHeader() {
 }
 
 export default function Home() {
-  return (
-    <Layout
-      title="Livewire 日本語ドキュメント"
-      description="Livewire公式ドキュメント日本語訳">
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
-    </Layout>
-  );
+  const history = useHistory();
+  useEffect(() => {
+    history.replace('/docs/quickstart');
+  }, [history]);
+  return null;
 }

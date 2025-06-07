@@ -1,4 +1,7 @@
-<!-- filepath: /home/yamamoto/oss/translations/livewire/docs/wire-model.md -->
+---
+title: wire:model ディレクティブ
+---
+
 Livewireでは、`wire:model` を使ってコンポーネントのプロパティとフォーム入力値を簡単にバインドできます。
 
 例えば、「Create Post」コンポーネントで `$title` と `$content` プロパティをフォーム入力とバインドする例です。

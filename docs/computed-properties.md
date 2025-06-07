@@ -1,3 +1,7 @@
+---
+title: 計算プロパティ
+---
+
 Computed properties are a way to create "derived" properties in Livewire. Like accessors on an Eloquent model, computed properties allow you to access values and cache them for future access during the request.
 
 Computed properties are particularly useful in combination with component's public properties.

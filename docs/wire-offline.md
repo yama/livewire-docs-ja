@@ -1,3 +1,7 @@
+---
+title: wire:offline ディレクティブ
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/wire-offline.md -->
 状況によっては、ユーザーが現在インターネットに接続されているかどうかを知らせることが重要です。
 

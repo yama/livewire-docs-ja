@@ -1,3 +1,7 @@
+---
+title: wire:confirm ディレクティブ
+---
+
 Livewireで危険な操作を行う前に、ユーザーに確認ダイアログを表示したい場合があります。
 
 Livewireでは、`wire:click` や `wire:submit` などのアクションに加えて `wire:confirm` を追加するだけで、簡単に確認ダイアログを実装できます。

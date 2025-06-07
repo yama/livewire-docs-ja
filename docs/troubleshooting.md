@@ -1,3 +1,7 @@
+---
+title: トラブルシューティング
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/troubleshooting.md -->
 Livewire HQ では、みなさんが問題に直面する前にできる限り障害を取り除くよう努めています。しかし、時には新たな問題を生み出さずに解決できないケースや、予期できない問題も発生します。
 

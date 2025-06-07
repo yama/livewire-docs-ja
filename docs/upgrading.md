@@ -1,3 +1,6 @@
+---
+title: アップグレード
+---
 
 ## Automated upgrade tool
 

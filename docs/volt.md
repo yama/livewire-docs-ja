@@ -1,3 +1,7 @@
+---
+title: Volt パッケージ
+---
+
 > [!warning] まずはLivewireの基本を理解しましょう
 > Voltを使い始める前に、標準的なクラスベースのLivewireの使い方に慣れておくことをおすすめします。これにより、Livewireの知識をスムーズにVoltの関数型APIへ応用できます。
 

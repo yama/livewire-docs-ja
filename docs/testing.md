@@ -1,3 +1,7 @@
+---
+title: テスト
+---
+
 Livewireコンポーネントのテストファイルを生成するには、`make:livewire`コマンドに`--test`フラグを付けて実行します：
 
 ```shell
@@ -634,4 +638,4 @@ Livewireは多くのテストユーティリティを提供しています。以
 | `assertHasErrors(['title' => ['required', 'min:6']])`   | 指定したバリデーションルールが`title`プロパティに対して失敗したことをアサート                                                                                                            |
 | `assertHasNoErrors('title')`                          | `title`プロパティにバリデーションエラーがないことをアサート                                                                                                                  |
 | `assertHasNoErrors(['title' => ['required', 'min:6']])` | 指定したバリデーションルールが`title`プロパティに対して失敗していないことをアサート                                                                                                    |
-| `assertRedirect()`                                    | コンポーネント内でリダイレクトがトリガーされたことをアサート                                                 
+| `assertRedirect()`                                    | コンポーネント内でリダイレクトがトリガーされたことをアサート

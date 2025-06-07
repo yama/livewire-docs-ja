@@ -1,3 +1,7 @@
+---
+title: インストール
+---
+
 LivewireはLaravelのパッケージです。そのため、Livewireをインストールして利用するには、あらかじめLaravelアプリケーションが動作している必要があります。Laravelアプリケーションのセットアップ方法については、[公式Laravelドキュメント](https://laravel.com/docs/installation)をご覧ください。
 
 Livewireのインストールは、ターミナルでLaravelアプリケーションのディレクトリに移動し、次のコマンドを実行するだけです。

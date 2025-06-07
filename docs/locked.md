@@ -1,3 +1,7 @@
+---
+title: ロック
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/locked.md -->
 Livewireのプロパティは、`wire:model`などのユーティリティを使ってフロントエンド・バックエンドの両方から自由に変更できます。しかし、例えばモデルIDのように、フロントエンドからプロパティが変更されるのを防ぎたい場合は、Livewireの`#[Locked]`属性を利用できます。
 

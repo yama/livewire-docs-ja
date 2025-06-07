@@ -1,3 +1,7 @@
+---
+title: ダウンロード
+---
+
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/downloads.md -->
 Livewireでのファイルダウンロードは、基本的にLaravel本体と同じように動作します。通常、Livewireコンポーネント内でLaravelのダウンロード用ユーティリティをそのまま利用でき、期待通りに動作します。
 

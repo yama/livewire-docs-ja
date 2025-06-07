@@ -1,3 +1,7 @@
+---
+title: フォーム
+---
+
 <!-- フォームは多くのWebアプリケーションの基盤となるため、Livewireはフォーム構築を支援する多くの便利な機能を提供しています。シンプルな入力要素の扱いから、リアルタイムバリデーションやファイルアップロードのような複雑な処理まで、Livewireには開発を簡単にし、ユーザー体験を向上させるための分かりやすいツールが揃っています。 -->
 
 さっそく見ていきましょう。
@@ -181,4 +185,27 @@ class CreatePost extends Component
 
     public function render()
     {
-   
+        return view('livewire.create-post');
+    }
+}
+```
+
+```blade
+<form wire:submit="save">
+    <input type="text" wire:model="form.title">
+    <div>
+        @error('title') <span class="error">{{ $message }}</span> @enderror <!-- [tl! highlight] -->
+    </div>
+
+    <input type="text" wire:model="form.content">
+    <div>
+        @error('content') <span class="error">{{ $message }}</span> @enderror <!-- [tl! highlight] -->
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+```
+
+これで、`CreatePost`コンポーネントは`PostForm`クラスを使用してフォームロジックを管理するようになりました。この変更により、コンポーネントクラスはよりクリーンになり、フォーム関連のロジックは専用のフォームクラスにカプセル化されました。
+
+フォームオブジェクトの詳細については、[フォームオブジェクトに関する専用ドキュメントページ](/docs/forms)をご覧ください。
