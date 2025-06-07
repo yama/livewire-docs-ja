@@ -48,5 +48,5 @@ title: wire:current ディレクティブ
 
 `wire:current` で現在のリンクが正しく検出されない場合は、以下を確認してください。
 
-* ページ内に少なくとも1つのLivewireコンポーネントがある、またはレイアウトに `@livewireScripts` を記述している
+* ページ内に少なくともひとつのLivewireコンポーネントがある、またはレイアウトに `@livewireScripts` を記述している
 * リンクに `href` 属性が設定されている

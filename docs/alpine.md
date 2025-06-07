@@ -283,11 +283,15 @@ class PostDropdown extends Component
 </div>
 ```
 
-> [!tip] `$wire.entangle`は必ずしも必要ではありません
-> ほとんどの場合、AlpineからLivewireのプロパティに直接アクセスするために`$wire`を使用することで、望んでいることを達成できます。2つのプロパティを絡めるよりも、1つのプロパティに依存する方が、深くネストされたオブジェクトを使用する際の予測可能性やパフォーマンスの問題を引き起こす可能性があるため、`$wire.entangle`はLivewireのドキュメントでの強調表示が減少しています（バージョン3から）。
+:::tip
+`$wire.entangle`は必ずしも必要ではありません
+ほとんどの場合、AlpineからLivewireのプロパティに直接アクセスするために`$wire`を使用することで、望んでいることを達成できます。2つのプロパティを絡めるよりも、ひとつのプロパティに依存する方が、深くネストされたオブジェクトを使用する際の予測可能性やパフォーマンスの問題を引き起こす可能性があるため、`$wire.entangle`はLivewireのドキュメントでの強調表示が減少しています（バージョン3から）。
+:::
 
-> [!warning] @@entangleディレクティブの使用は避けてください
-> Livewireバージョン2では、Bladeの`@@entangle`ディレクティブを使用することが推奨されていました。しかし、v3ではそうではなくなりました。`$wire.entangle()`が推奨されており、これはより堅牢なユーティリティであり、特定の[DOM要素を削除する際の問題](https://github.com/livewire/livewire/pull/6833#issuecomment-1902260844)を回避します。
+:::warning
+@@entangleディレクティブの使用は避けてください
+Livewireバージョン2では、Bladeの`@@entangle`ディレクティブを使用することが推奨されていました。しかし、v3ではそうではなくなりました。`$wire.entangle()`が推奨されており、これはより堅牢なユーティリティであり、特定の[DOM要素を削除する際の問題](https://github.com/livewire/livewire/pull/6833#issuecomment-1902260844)を回避します。
+:::
 
 ## JavaScriptビルドへのAlpineの手動バンドル
 

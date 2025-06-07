@@ -189,6 +189,6 @@ Livewireが内部的に使うCSSは、以下の修飾子を組み合わせて自
 </div>
 ```
 
-> [!tip] Livewireは内部的にAlpineのトランジションを利用
-> `wire:transition`を使うと、Livewireは内部的にAlpineの`x-transition`ディレクティブを適用します。Alpineのトランジション構文もほぼそのまま使えるので、[Alpine公式ドキュメント](https://alpinejs.dev/directives/transition)も参考にしてください。
+:::tip Livewireは内部的にAlpineのトランジションを利用
+`wire:transition`を使うと、Livewireは内部的にAlpineの`x-transition`ディレクティブを適用します。Alpineのトランジション構文もほぼそのまま使えるので、[Alpine公式ドキュメント](https://alpinejs.dev/directives/transition)も参考にしてください。
 

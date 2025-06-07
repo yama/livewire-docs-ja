@@ -29,10 +29,11 @@ Livewireでは、テンプレートの一部をページ内の別のDOM位置へ
 </div>
 ```
 
-> [!info]
-> `@teleport`のセレクタは、通常`document.querySelector()`に渡す任意の文字列を指定できます。
->
-> `document.querySelector()`の詳細は[MDNドキュメント](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)をご覧ください。
+:::info
+`@teleport`のセレクタは、通常`document.querySelector()`に渡す任意の文字列を指定できます。
+
+`document.querySelector()`の詳細は[MDNドキュメント](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)をご覧ください。
+:::
 
 上記のLivewireテンプレートをページでレンダリングすると、モーダルの「内容」部分が`<body>`末尾に出力されます：
 
@@ -46,8 +47,10 @@ Livewireでは、テンプレートの一部をページ内の別のDOM位置へ
 </body>
 ```
 
-> [!warning] コンポーネント外へのテレポートのみ対応
-> Livewireは、コンポーネント外へのHTMLテレポートのみをサポートしています。たとえば、モーダルを`<body>`タグへテレポートするのはOKですが、同じコンポーネント内の別要素へのテレポートは動作しません。
+:::warning テレポートはルート要素がひとつのみ
+Livewireは、コンポーネント外へのHTMLテレポートのみをサポートしています。たとえば、モーダルを`<body>`タグへテレポートするのはOKですが、同じコンポーネント内の別要素へのテレポートは動作しません。
+:::
 
-> [!warning] テレポートはルート要素が1つのみ
-> `@teleport`内には必ず1つのルート要素だけを含めてください。
+:::warning テレポートはルート要素がひとつのみ
+`@teleport`内には必ずひとつのルート要素だけを含めてください。
+:::

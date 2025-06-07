@@ -1,19 +1,20 @@
 ---
-title: 計算プロパティ
+title: 算出プロパティ
 ---
 
-Computed properties are a way to create "derived" properties in Livewire. Like accessors on an Eloquent model, computed properties allow you to access values and cache them for future access during the request.
+算出プロパティ（Computed properties）は、Livewire で「派生プロパティ」を作成するための仕組みです。Eloquent モデルのアクセサのように、算出プロパティを使うことで値を取得し、その値をリクエスト中にキャッシュして再利用できます。
 
-Computed properties are particularly useful in combination with component's public properties.
+算出プロパティは、特にコンポーネントの public プロパティと組み合わせて使うと便利です。
 
-## Basic usage
+## 基本的な使い方
 
-To create a computed property, you can add the `#[Computed]` attribute above any method in your Livewire component. Once the attribute has been added to the method, you can access it like any other property.
+算出プロパティを作成するには、Livewire コンポーネント内の任意のメソッドの上に `#[Computed]` 属性を追加します。この属性を付けたメソッドは、他のプロパティと同じようにアクセスできます。
 
-> [!warning] Make sure you import attribute classes
-> Make sure you import any attribute classes. For example, the below `#[Computed]` attribute requires the following import `use Livewire\Attributes\Computed;`.
+:::warning
+属性クラスのインポートを忘れずに
+:::
 
-For example, here's a `ShowUser` component that uses a computed property named `user()` to access a `User` Eloquent model based on a property named `$userId`:
+例えば、`ShowUser` コンポーネントで `$userId` プロパティをもとに `User` モデルを取得する `user()` という算出プロパティを定義する例です。
 
 ```php
 <?php
@@ -55,35 +56,44 @@ class ShowUser extends Component
 </div>
 ```
 
-Because the `#[Computed]` attribute has been added to the `user()` method, the value is accessible in other methods in the component and within the Blade template.
+`user()` メソッドに `#[Computed]` 属性を付けることで、他のメソッドや Blade テンプレート内でも `$this->user` として値にアクセスできます。
 
-> [!info] Must use `$this` in your template
-> Unlike normal properties, computed properties aren't directly available inside your component's template. Instead, you must access them on the `$this` object. For example, a computed property named `posts()` must be accessed via `$this->posts` inside your template.
+:::info
+テンプレート内では `$this` を使う必要があります
+:::
 
-> [!warning] Computed properties are not supported on `Livewire\Form` objects.
-> Trying to use a Computed property within a [Form](https://livewire.laravel.com/docs/forms) will result in an error when you attempt to access the property in blade using $form->property syntax.
+> 通常のプロパティとは異なり、算出プロパティはコンポーネントのテンプレート内で直接参照できません。必ず `$this->プロパティ名` の形でアクセスしてください。たとえば、`posts()` という算出プロパティは、テンプレート内で `$this->posts` として参照します。
 
-## Performance advantage
+:::warning
+算出プロパティは `Livewire\Form` オブジェクトではサポートされていません。
+:::
 
-You may be asking yourself: why use computed properties at all? Why not just call the method directly?
+> [Form](https://livewire.laravel.com/docs/forms) 内で算出プロパティを使い、Blade で `$form->property` のようにアクセスしようとするとエラーになります。
 
-Accessing a method as a computed property offers a performance advantage over calling a method. Internally, when a computed property is executed for the first time, Livewire caches the returned value. This way, any subsequent accesses in the request will return the cached value instead of executing multiple times.
+## パフォーマンス上の利点
 
-This allows you to freely access a derived value and not worry about the performance implications.
+「なぜ算出プロパティを使う必要があるのか？メソッドを直接呼び出せばいいのでは？」と思うかもしれません。
 
-> [!warning] Computed properties are only cached for a single request
-> It's a common misconception that Livewire caches computed properties for the entire lifespan of your Livewire component on a page. However, this isn't the case. Instead, Livewire only caches the result for the duration of a single component request. This means that if your computed property method contains an expensive database query, it will be executed every time your Livewire component performs an update.
+算出プロパティとしてメソッドを呼び出すと、パフォーマンス上の利点があります。内部的には、算出プロパティが最初に実行されたときに値がキャッシュされ、同じリクエスト内で再度アクセスしてもメソッドが何度も実行されず、キャッシュされた値が返されます。
 
-### Busting the cache
+これにより、計算コストの高い値でも安心して何度も参照できます。
 
-Consider the following problematic scenario:
-1) You access a computed property that depends on a certain property or database state
-2) The underlying property or database state changes
-3) The cached value for the property becomes stale and needs to be re-computed
+:::warning
+算出プロパティのキャッシュは1リクエストのみ有効です
+:::
 
-To clear, or "bust", the stored cache, you can use PHP's `unset()` function.
+> 算出プロパティは Livewire コンポーネントのページ上でずっとキャッシュされると誤解されがちですが、実際は1リクエストごとにキャッシュされます。たとえば、算出プロパティ内で重いDBクエリがあっても、Livewire のリクエストごとに毎回実行されます。
 
-Below is an example of an action called `createPost()` that, by creating a new post in the application, makes the `posts()` computed stale — meaning the computed property `posts()` needs to be re-computed to include the newly added post:
+### キャッシュのクリア（バスト）
+
+次のような問題が起こる場合があります：
+1) ある算出プロパティが特定のプロパティやDBの状態に依存している
+2) そのプロパティやDBの状態が変化する
+3) キャッシュされた値が古くなり、再計算が必要になる
+
+このような場合、PHP の `unset()` 関数でキャッシュをクリア（バスト）できます。
+
+以下は、`createPost()` アクションで新しい投稿を作成した際に、`posts()` 算出プロパティのキャッシュをクリアする例です。
 
 ```php
 <?php
@@ -115,13 +125,13 @@ class ShowPosts extends Component
 }
 ```
 
-上記のコンポーネントでは、`createPost()` メソッドが新しい投稿を作成する前に `$this->posts` にアクセスしているため、コンピューテッドプロパティは新しい投稿が作成される前の状態でキャッシュされます。ビュー内で `$this->posts` を最新の内容にするには、`unset($this->posts)` を使ってキャッシュを無効化します。
+上記の例では、`createPost()` メソッド内で新しい投稿を作成する前に `$this->posts` にアクセスしているため、算出プロパティは作成前の状態でキャッシュされます。ビューで最新の `$this->posts` を取得するには、`unset($this->posts)` でキャッシュをクリアします。
 
-### リクエスト間でのキャッシュ
+### リクエストをまたいだキャッシュ
 
-Livewire コンポーネントのライフサイクル全体でコンピューテッドプロパティの値をキャッシュしたい場合もあります（リクエストごとにクリアされるのではなく）。このような場合は、[Laravel のキャッシュユーティリティ](https://laravel.com/docs/cache#retrieve-store)を利用できます。
+Livewire コンポーネントのライフサイクル全体で算出プロパティの値をキャッシュしたい場合は、[Laravel のキャッシュユーティリティ](https://laravel.com/docs/cache#retrieve-store)を利用できます。
 
-以下は `user()` というコンピューテッドプロパティの例です。Eloquent クエリを直接実行する代わりに、`Cache::remember()` でラップすることで、今後のリクエストではクエリを再実行せず Laravel のキャッシュから値を取得できるようにしています。
+以下は `user()` 算出プロパティの例です。Eloquent クエリを直接実行する代わりに、`Cache::remember()` でラップすることで、今後のリクエストではクエリを再実行せず Laravel のキャッシュから値を取得できます。
 
 ```php
 <?php
@@ -139,7 +149,7 @@ class ShowUser extends Component
     public function user()
     {
         $key = 'user'.$this->getId();
-        $seconds = 3600; // 1 hour...
+        $seconds = 3600; // 1時間
 
         return Cache::remember($key, $seconds, function () {
             return User::find($this->userId);
@@ -150,9 +160,9 @@ class ShowUser extends Component
 }
 ```
 
-Because each unique instance of a Livewire component has a unique ID, we can use `$this->getId()` to generate a unique cache key that will only be applied to future requests for this same component instance.
+Livewire コンポーネントごとに一意の ID が割り当てられるため、`$this->getId()` を使ってキャッシュキーを生成し、同じインスタンスでのみキャッシュが共有されるようにしています。
 
-But, as you may have noticed, most of this code is predictable and can easily be abstracted. Because of this, Livewire's `#[Computed]` attribute provides a helpful `persist` parameter. By applying `#[Computed(persist: true)]` to a method, you can achieve the same result without any extra code:
+ただし、こうしたコードはパターン化できるため、Livewire の `#[Computed]` 属性には `persist` パラメータが用意されています。`#[Computed(persist: true)]` をメソッドに付けるだけで、同じ効果が得られます。
 
 ```php
 use Livewire\Attributes\Computed;
@@ -165,20 +175,23 @@ public function user()
 }
 ```
 
-In the example above, when `$this->user` is accessed from your component, it will continue to be cached for the duration of the Livewire component on the page. This means the actual Eloquent query will only be executed once.
+上記の例では、`$this->user` にアクセスすると、Livewire コンポーネントのライフサイクル中は値がキャッシュされ、実際の Eloquent クエリは1回だけ実行されます。
 
-Livewire caches persisted values for 3600 seconds (one hour). You can override this default by passing an additional `seconds` parameter to the `#[Computed]` attribute:
+Livewire では、`persist: true` の場合、デフォルトで3600秒（1時間）キャッシュされます。キャッシュ時間は `seconds` パラメータで変更できます。
 
 ```php
 #[Computed(persist: true, seconds: 7200)]
 ```
 
-> [!tip] Calling `unset()` will bust this cache
-> As previously discussed, you can clear a computed property's cache using PHP's `unset()` method. This also applies to computed properties using the `persist: true` parameter. When calling `unset()` on a cached computed property, Livewire will clear not only the computed property cache, but also the underlying cached value in Laravel's cache.
+:::tip
+`unset()` でキャッシュをクリアできます
+:::
 
-## Caching across all components
+> 先述の通り、PHP の `unset()` で算出プロパティのキャッシュをクリアできます。`persist: true` の場合も同様で、Livewire のキャッシュと Laravel のキャッシュの両方がクリアされます。
 
-Instead of caching the value of a computed property for the duration of a single component's lifecycle, you can cache the value of a computed across all components in your application using the `cache: true` parameter provided by the `#[Computed]` attribute:
+## 全コンポーネント間でのキャッシュ共有
+
+ひとつのコンポーネントのライフサイクルだけでなく、アプリケーション内の全コンポーネントで算出プロパティの値を共有したい場合は、`#[Computed]` 属性の `cache: true` パラメータを使います。
 
 ```php
 use Livewire\Attributes\Computed;
@@ -191,9 +204,9 @@ public function posts()
 }
 ```
 
-In the above example, until the cache expires or is busted, every instance of this component in your application will share the same cached value for `$this->posts`.
+この例では、キャッシュが有効な間、アプリケーション内のすべてのコンポーネントで `$this->posts` の値が共有されます。
 
-If you need to manually clear the cache for a computed property, you may set a custom cache key using the `key` parameter:
+算出プロパティのキャッシュを手動でクリアしたい場合は、`key` パラメータでカスタムキーを指定できます。
 
 ```php
 use Livewire\Attributes\Computed;
@@ -206,11 +219,11 @@ public function posts()
 }
 ```
 
-## When to use computed properties?
+## 算出プロパティを使うべき場面
 
-In addition to offering performance advantages, there are a few other scenarios where computed properties are helpful。
+パフォーマンス面以外にも、算出プロパティが役立つ場面があります。
 
-特に、コンポーネントの Blade テンプレートにデータを渡すときに、コンピューテッドプロパティを使うことでより適したケースがいくつかあります。以下は、投稿のコレクションを Blade テンプレートに渡すシンプルなコンポーネントの `render()` メソッドの例です。
+特に、コンポーネントの Blade テンプレートにデータを渡す際に、算出プロパティを使うことで便利なケースがいくつかあります。以下は、投稿のコレクションを Blade テンプレートに渡すシンプルな `render()` メソッドの例です。
 
 ```php
 public function render()
@@ -229,13 +242,13 @@ public function render()
 </div>
 ```
 
-この方法でも多くのケースで十分ですが、コンピューテッドプロパティを使うことでより適したケースが３つあります。
+この方法でも十分な場合が多いですが、算出プロパティを使うことでより適したケースが3つあります。
 
 ### 値への条件付きアクセス
 
-Blade テンプレート内で計算コストの高い値に条件付きでアクセスする場合、コンピューテッドプロパティを使うことでパフォーマンスの無駄を減らせます。
+Blade テンプレート内で計算コストの高い値に条件付きでアクセスする場合、算出プロパティを使うことでパフォーマンスの無駄を防げます。
 
-以下はコンピューテッドプロパティを使わない場合のテンプレート例です。
+算出プロパティを使わない場合の例：
 
 ```blade
 <div>
@@ -247,9 +260,9 @@ Blade テンプレート内で計算コストの高い値に条件付きでア�
 </div>
 ```
 
-この場合、ユーザーが投稿の閲覧を制限されていても、投稿を取得するためのデータベースクエリはすでに実行されてしまい、テンプレート内で実際には使われません。
+この場合、ユーザーが投稿を閲覧できなくても、`$posts` のDBクエリは実行されてしまいます。
 
-次に、同じシナリオをコンピューテッドプロパティで書き直した例です。
+同じシナリオを算出プロパティで書き直すと：
 
 ```php
 use Livewire\Attributes\Computed;
@@ -277,13 +290,13 @@ public function render()
 </div>
 ```
 
-このように、コンピューテッドプロパティを使ってテンプレートにデータを渡すことで、必要なときだけデータベースクエリが実行されるようになります。
+このように算出プロパティを使うことで、必要なときだけDBクエリが実行されます。
 
 ### インラインテンプレートの利用
 
-コンピューテッドプロパティが役立つもう１つのケースは、[インラインテンプレート](/docs/components#inline-components)を使う場合です。
+算出プロパティが役立つもうひとつのケースは、[インラインテンプレート](/docs/components#inline-components)を使う場合です。
 
-以下は `render()` メソッド内でテンプレート文字列を直接返しているインラインコンポーネントの例です。この場合、ビューにデータを渡す機会がありません。
+以下は `render()` メソッド内でテンプレート文字列を直接返すインラインコンポーネントの例です。この場合、ビューにデータを渡す手段がありません。
 
 ```php
 <?php
@@ -313,7 +326,7 @@ class ShowPosts extends Component
 }
 ```
 
-このような場合、コンピューテッドプロパティがなければ Blade テンプレートに明示的にデータを渡す方法がありません。
+このような場合、算出プロパティがなければ Blade テンプレートに明示的にデータを渡す方法がありません。
 
 ### render メソッドの省略
 
@@ -321,7 +334,7 @@ Livewire では、コンポーネントの `render()` メソッド自体を省�
 
 この場合、Blade ビューにデータを渡すための `render()` メソッドが存在しません。
 
-このようなときも、`render()` メソッドを再び追加するのではなく、コンピューテッドプロパティを使ってビューにデータを提供できます。
+このようなときも、`render()` メソッドを再び追加するのではなく、算出プロパティを使ってビューにデータを提供できます。
 
 ```php
 <?php

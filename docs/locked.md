@@ -2,16 +2,15 @@
 title: ロック
 ---
 
-<!-- filepath: /home/yamamoto/oss/translations/livewire/docs/locked.md -->
 Livewireのプロパティは、`wire:model`などのユーティリティを使ってフロントエンド・バックエンドの両方から自由に変更できます。しかし、例えばモデルIDのように、フロントエンドからプロパティが変更されるのを防ぎたい場合は、Livewireの`#[Locked]`属性を利用できます。
 
 ## 基本的な使い方
 
 以下は、`Post`モデルのIDを`$id`というパブリックプロパティとして保持する`ShowPost`コンポーネントの例です。このプロパティが好奇心旺盛なユーザーや悪意のあるユーザーによって変更されないようにするには、プロパティに`#[Locked]`属性を追加します。
 
-> [!warning] 属性クラスのインポートを忘れずに
-> 
-> 属性クラスは必ずインポートしてください。たとえば、下記の`#[Locked]`属性を使う場合は、`use Livewire\Attributes\Locked;`のインポートが必要です。
+:::warning 属性クラスのインポートを忘れずに
+属性クラスは必ずインポートしてください。たとえば、下記の`#[Locked]`属性を使う場合は、`use Livewire\Attributes\Locked;`のインポートが必要です。
+:::
 
 ```php
 use Livewire\Attributes\Locked;
@@ -33,21 +32,23 @@ class ShowPost extends Component
 
 `#[Locked]`属性を追加することで、`$id`プロパティが改ざんされる心配がなくなります。
 
-> [!tip] モデルプロパティはデフォルトで安全です
-> パブリックプロパティにモデルIDだけでなくEloquentモデル自体を格納した場合、Livewireは`#[Locked]`属性を明示的に追加しなくてもIDが改ざんされないよう自動的に保護します。多くの場合、`#[Locked]`を使うよりもこの方法がおすすめです:
-> ```php
-> class ShowPost extends Component
-> {
->    public Post $post; // [tl! highlight]
->
->    public function mount($postId)
->    {
->        $this->post = Post::find($postId);
->    }
->
->    // ...
->}
-> ```
+:::tip モデルプロパティはデフォルトで安全です
+
+パブリックプロパティにモデルIDだけでなくEloquentモデル自体を格納した場合、Livewireは`#[Locked]`属性を明示的に追加しなくてもIDが改ざんされないよう自動的に保護します。多くの場合、`#[Locked]`を使うよりもこの方法がおすすめです:
+```php
+class ShowPost extends Component
+{
+   public Post $post; // [tl! highlight]
+
+   public function mount($postId)
+   {
+       $this->post = Post::find($postId);
+   }
+
+   // ...
+}
+```
+:::
 
 ### なぜprotectedプロパティではダメなのか？
 

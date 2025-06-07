@@ -5,10 +5,9 @@ title: wire:stream ディレクティブ
 <!-- filepath: /home/yamamoto/oss/translations/livewire/docs/wire-stream.md -->
 Livewireでは、`wire:stream` APIを使ってリクエスト完了前にコンテンツをWebページへストリーミングできます。AIチャットボットのように、生成されるレスポンスをリアルタイムで表示したい場合に非常に便利です。
 
-> [!warning] Laravel Octaneとの非互換
-> 現時点でLivewireは`wire:stream`とLaravel Octaneの併用をサポートしていません。
-
+:::warning Laravel Octaneとの非互換
 `wire:stream`の基本的な使い方として、ボタンを押すと「3」から「0」までカウントダウンを表示するシンプルなCountDownコンポーネントの例を紹介します。
+:::
 
 ```php
 use Livewire\Component;

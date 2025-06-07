@@ -1,8 +1,7 @@
 ---
-title: wire:ignore ディレクティブ
+title: wire-ignore
 ---
 
-<!-- filepath: /home/yamamoto/oss/translations/livewire/docs/wire-ignore.md -->
 Livewireはページの内容を動的に更新できるのが特徴ですが、場合によってはページの一部だけLivewireによる更新を無効化したいことがあります。
 
 このような場合は、`wire:ignore` ディレクティブを使うことで、特定の要素の内容がリクエストごとに変化してもLivewireが無視するように指示できます。

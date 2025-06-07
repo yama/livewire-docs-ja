@@ -50,11 +50,13 @@ class CreatePost extends Component
 
 この例では、ユーザーが「Save」ボタンでフォームを送信すると、`wire:submit`が`submit`イベントを受け取り、サーバー側の`save()`アクションを呼び出します。
 
-> [!info] Livewireは自動でpreventDefault()を呼び出します
-> `wire:submit`は他のLivewireイベントハンドラと異なり、内部的に`event.preventDefault()`を自動で実行します。これは、`submit`イベントを監視する場合、ほとんどのケースでブラウザのデフォルト動作（通常のフォーム送信）を防ぎたいからです。
+:::info Livewireは自動でpreventDefault()を呼び出します
+`wire:submit`は他のLivewireイベントハンドラと異なり、内部的に`event.preventDefault()`を自動で実行します。これは、`submit`イベントを監視する場合、ほとんどのケースでブラウザのデフォルト動作（通常のフォーム送信）を防ぎたいからです。
+:::
 
-> [!info] 送信中はフォームが自動で無効化されます
-> Livewireはフォーム送信中、送信ボタンを無効化し、すべての入力を`readonly`にします。これにより、送信完了まで同じフォームが二重送信されるのを防げます。
+:::info 送信中はフォームが自動で無効化されます
+Livewireはフォーム送信中、送信ボタンを無効化し、すべての入力を`readonly`にします。これにより、送信完了まで同じフォームが二重送信されるのを防げます。
+:::
 
 ## さらに詳しく
 

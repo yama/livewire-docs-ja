@@ -12,8 +12,9 @@ Laravelのページネーターは静的なアプリケーション向けに設�
 
 以下は、`ShowPosts`コンポーネント内でページネーションを使い、１度に10件だけ投稿を表示する最も基本的な例です。
 
-> [!warning] `WithPagination`トレイトの利用が必須です
-> Livewireのページネーション機能を利用するには、ページネーションを含む各コンポーネントで`Livewire\WithPagination`トレイトを使う必要があります。
+:::warning `WithPagination`トレイトの利用が必須です
+Livewireのページネーション機能を利用するには、ページネーションを含む各コンポーネントで`Livewire\WithPagination`トレイトを使う必要があります。
+:::
 
 ```php
 <?php
@@ -160,7 +161,7 @@ class SearchPosts extends Component
 
 ## 複数のページネーター
 
-LaravelとLivewireの両方がURLのクエリ文字列パラメータを使用して現在のページ番号を保存および追跡するため、1つのページに複数のページネーターがある場合は、それぞれに異なる名前を付けることが重要です。
+LaravelとLivewireの両方がURLのクエリ文字列パラメータを使用して現在のページ番号を保存および追跡するため、ひとつのページに複数のページネーターがある場合は、それぞれに異なる名前を付けることが重要です。
 
 問題をより明確に示すために、以下の`ShowClients`コンポーネントを考えてみましょう。
 
@@ -333,11 +334,12 @@ https://example.com/posts?cursor=eyJpZCI6MTUsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0
 'pagination_theme' => 'bootstrap',
 ```
 
-> [!info] Livewireの構成ファイルの公開
-> ページネーションテーマをカスタマイズする前に、次のコマンドを実行してLivewireの構成ファイルをアプリケーションの`/config`ディレクトリに公開する必要があります。
-> ```shell
-> php artisan livewire:publish --config
-> ```
+:::info Livewireの構成ファイルの公開
+ページネーションテーマをカスタマイズする前に、次のコマンドを実行してLivewireの構成ファイルをアプリケーションの`/config`ディレクトリに公開する必要があります。
+```shell
+php artisan livewire:publish --config
+```
+:::
 
 ## デフォルトのページネーションビューの変更
 

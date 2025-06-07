@@ -2,7 +2,6 @@
 title: イベント
 ---
 
-<!-- filepath: /home/yamamoto/oss/translations/livewire/docs/events.md -->
 イベントをトリガーするには、コンポーネント内のどこからでも `dispatch()` メソッドを使い、ページ上の他のコンポーネントからそのイベントをリッスンできます。
 
 ## イベントの発火
@@ -37,8 +36,9 @@ $this->dispatch('post-created', title: $post->title);
 
 Livewireコンポーネントでイベントをリッスンするには、特定のイベントが発火したときに呼び出されるメソッドの上に `#[On]` 属性を追加します。
 
-> [!warning] 属性クラスのインポートを忘れずに
-> 属性クラスをインポートすることを忘れないでください。例えば、以下の `#[On()]` 属性には、`use Livewire\Attributes\On;` のインポートが必要です。
+:::warning 属性クラスのインポートを忘れずに
+属性クラスをインポートすることを忘れないでください。例えば、以下の `#[On()]` 属性には、`use Livewire\Attributes\On;` のインポートが必要です。
+:::
 
 ```php
 use Livewire\Component;
@@ -286,14 +286,24 @@ Livewireの `dispatch()` メソッドと同様に、メソッドの第二引数�
 
 Alpineを使用したイベントの発火について詳しくは、[Alpineのドキュメント](https://alpinejs.dev/magics/dispatch) を参照してください。
 
-> [!tip] イベントが不要な場合
-> 子から親への動作呼び出しにイベントを使用している場合、Bladeテンプレート内で `$parent` を使用して子から直接アクションを呼び出すことができます。例えば：
->
-> ```blade
-> <button wire:click="$parent.showCreatePostForm()">Create Post</button>
-> ```
->
-> [$parent について詳しく読む](/docs/nesting#directly-accessing-the-parent-from-the-child)。
+:::tip
+イベント名の命名規則
+Livewireのイベント名は自由に命名できますが、他のイベントと衝突しないように注意してください。
+:::
+
+:::info
+イベントリスナーの詳細
+Livewireのイベントリスナーは、コンポーネント間の通信や外部JavaScriptとの連携にも利用できます。
+:::
+
+:::tip イベントが不要な場合
+子から親への動作呼び出しにイベントを使用している場合、Bladeテンプレート内で `$parent` を使用して子から直接アクションを呼び出すことができます。例えば下記のようになります。
+
+```blade
+<button wire:click="$parent.showCreatePostForm()">Create Post</button>
+```
+[$parent について詳しく読む](/docs/nesting#directly-accessing-the-parent-from-the-child)。
+:::
 
 ## 別のコンポーネントへの直接のイベント発火
 
@@ -416,8 +426,9 @@ class DashboardTest extends TestCase
 
 Livewireは、[Laravel Echo](https://laravel.com/docs/broadcasting#client-side-installation) と組み合わせることで、WebSocketを使用してウェブページにリアルタイム機能を提供します。
 
-> [!warning] Laravel Echoのインストールが前提条件
-> この機能は、Laravel Echo がインストールされており、`window.Echo` オブジェクトがアプリケーション内でグローバルに利用可能であることを前提としています。Echo のインストールに関する詳細は、[Laravel Echo のドキュメント](https://laravel.com/docs/broadcasting#client-side-installation) を確認してください。
+:::warning Laravel Echoのインストールが前提条件
+この機能は、Laravel Echo がインストールされており、`window.Echo` オブジェクトがアプリケーション内でグローバルに利用可能であることを前提としています。Echo のインストールに関する詳細は、[Laravel Echo のドキュメント](https://laravel.com/docs/broadcasting#client-side-installation) を確認してください。
+:::
 
 ### Echoイベントのリッスン
 
@@ -550,8 +561,9 @@ public function notifyNewOrder($event)
 
 プライベートおよびプレゼンスチャンネルにブロードキャストされたイベントをリッスンすることもできます。
 
-> [!info]
-> 続行する前に、ブロードキャストチャンネルの<a href="https://laravel.com/docs/master/broadcasting#defining-authorization-callbacks">認証コールバック</a>を定義していることを確認してください。
+:::info
+続行する前に、ブロードキャストチャンネルの<a href="https://laravel.com/docs/master/broadcasting#defining-authorization-callbacks">認証コールバック</a>を定義していることを確認してください。
+:::
 
 ```php
 <?php

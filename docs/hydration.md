@@ -6,7 +6,7 @@ Livewireを使うと、まるでサーバーサイドのPHPクラスを直接Web
 
 実際のLivewireは、一般的なWebアプリケーションとよく似た動作をしています。静的なHTMLをブラウザにレンダリングし、ブラウザ上のイベントを監視し、サーバーサイドのコードを呼び出すためにAJAXリクエストを送信します。
 
-Livewireがサーバーに送る各AJAXリクエストは「ステートレス」（＝コンポーネントの状態を保持する長時間稼働のバックエンドプロセスが存在しない）であるため、Livewireは更新のたびにコンポーネントの直近の状態を再現する必要があります。
+Livewireがサーバーに送る各AJAXリクエストは「ステートレス」です。つまり、サーバー側でコンポーネントの状態を永続的（＝リクエスト間で保持し続ける）に保存する仕組みはありません。そのため、Livewireは更新のたびにコンポーネントの直近の状態を毎回サーバー上で再現する必要があります。
 
 このため、Livewireはサーバーサイドで更新が発生するたびにPHPコンポーネントの「スナップショット」を取得し、次回のリクエスト時にそのスナップショットからコンポーネントを再生成（または“再開”）できるようにしています。
 
@@ -48,7 +48,7 @@ class Counter extends Component
 }
 ```
 
-After each mount or update, Livewire would render the above `Counter` component to the following HTML:
+マウントまたは更新のたびに、Livewireは上記の`Counter`コンポーネントを次のHTMLにレンダリングします。
 
 ```html
 <div>
@@ -58,9 +58,9 @@ After each mount or update, Livewire would render the above `Counter` component 
 </div>
 ```
 
-### The snapshot
+### スナップショット
 
-In order to re-create the `Counter` component on the server during the next request, a JSON snapshot is created, attempting to capture as much of the state of the component as possible:
+次のリクエスト時にサーバー上で`Counter`コンポーネントを再作成するために、可能な限りコンポーネントの状態をキャプチャしようとするJSONスナップショットが作成されます。
 
 ```js
 {
@@ -76,16 +76,17 @@ In order to re-create the `Counter` component on the server during the next requ
 }
 ```
 
-Notice two different portions of the snapshot: `memo`, and `state`.
+スナップショットには`memo`と`state`の2つの異なる部分があります。
 
-The `memo` portion is used to store the information needed to identify and re-create the component, while the `state` portion stores the values of all the component's public properties.
+`memo`部分はコンポーネントを識別し再作成するために必要な情報を格納するために使用され、`state`部分はコンポーネントのすべてのパブリックプロパティの値を格納します。
 
-> [!info]
-> The above snapshot is a condensed version of an actual snapshot in Livewire. In live applications, the snapshot contains much more information, such as validation errors, a list of child components, locales, and much more. For a more detailed look at a snapshot object you may reference the [snapshot schema documentation](/docs/javascript#the-snapshot-object).
+:::info
+上記のスナップショットは、Livewireの実際のスナップショットの簡略版です。実際のアプリケーションでは、スナップショットにはバリデーションエラー、子コンポーネントのリスト、ロケールなど、さらに多くの情報が含まれます。スナップショットオブジェクトの詳細な情報については、[スナップショットスキーマドキュメント](/docs/javascript#the-snapshot-object)を参照してください。
+:::
 
-### Embedding the snapshot in the HTML
+### HTMLへのスナップショットの埋め込み
 
-When a component is first rendered, Livewire stores the snapshot as JSON inside an HTML attribute called `wire:snapshot`. This way, Livewire's JavaScript core can extract the JSON and turn it into a run-time object:
+コンポーネントが最初にレンダリングされると、LivewireはスナップショットをJSON形式で`wire:snapshot`というHTML属性に格納します。これにより、LivewireのJavaScriptコアはJSONを抽出し、実行時オブジェクトに変換します：
 
 ```html
 <div wire:id="..." wire:snapshot="{ state: {...}, memo: {...} }">
@@ -95,9 +96,9 @@ When a component is first rendered, Livewire stores the snapshot as JSON inside 
 </div>
 ```
 
-## Hydrating
+## ハイドレーション（Hydrating）
 
-When a component update is triggered, for example, the "+" button is pressed in the `Counter` component, a payload like the following is sent to the server:
+たとえば、`Counter`コンポーネントで「+」ボタンが押されるなど、コンポーネントの更新がトリガーされると、次のようなペイロードがサーバーに送信されます：
 
 ```js
 {
@@ -119,9 +120,9 @@ When a component update is triggered, for example, the "+" button is pressed in 
 }
 ```
 
-Before Livewire can call the `increment` method, it must first create a new `Counter` instance and seed it with the snapshot's state.
+Livewireが`increment`メソッドを呼び出す前に、まず新しい`Counter`インスタンスを作成し、スナップショットのstateで初期化する必要があります。
 
-Here is some PHP pseudo-code that achieves this result:
+次のPHP擬似コードは、この結果を達成します：
 
 ```php
 $state = request('snapshot.state');
@@ -134,15 +135,15 @@ foreach ($state as $property => $value) {
 }
 ```
 
-If you follow the above script, you will see that after creating a `Counter` object, its public properties are set based on the state provided from the snapshot.
+上記のスクリプトに従うと、`Counter`オブジェクトが作成された後、そのパブリックプロパティはスナップショットから提供された状態に基づいて設定されます。
 
-## Advanced hydration
+## 高度なハイドレーション
 
-The above `Counter` example works well to demonstrate the concept of hydration; however, it only demonstrates how Livewire handles hydrating simple values like integers (`1`).
+上記の`Counter`の例は、ハイドレーションの概念を示すのに適しています。しかし、整数（`1`など）のような単純な値のハイドレーション方法しか示していません。
 
-As you may know, Livewire supports many more sophisticated property types beyond integers.
+ご存知のように、Livewireは整数以外にも多くの洗練されたプロパティタイプをサポートしています。
 
-Let's take a look at a slightly more complex example - a `Todos` component:
+少し複雑な例として、`Todos`コンポーネントを見てみましょう：
 
 ```php
 class Todos extends Component
@@ -159,11 +160,11 @@ class Todos extends Component
 }
 ```
 
-As you can see, we are setting the `$todos` property to a [Laravel collection](https://laravel.com/docs/collections#main-content) with three strings as its content.
+このように、`$todos`プロパティを3つの文字列を含む[Laravelコレクション](https://laravel.com/docs/collections#main-content)に設定しています。
 
-JSON alone has no way of representing Laravel collections, so instead, Livewire has created its own pattern of associating metadata with pure data inside a snapshot.
+JSONだけではLaravelコレクションを表現する方法がないため、Livewireはスナップショット内の純粋なデータにメタデータを関連付ける独自のパターンを作成しました。
 
-Here is the snapshot's state object for this `Todos` component:
+この`Todos`コンポーネントのスナップショットの状態オブジェクトは次のようになります：
 
 ```js
 state: {
@@ -174,7 +175,7 @@ state: {
 },
 ```
 
-This may be confusing to you if you were expecting something more straightforward like:
+これは、次のような単純な配列を期待していた場合には混乱を招くかもしれません：
 
 ```js
 state: {
@@ -182,9 +183,9 @@ state: {
 },
 ```
 
-However, if Livewire were hydrating a component based on this data, it would have no way of knowing it's a collection and not a plain array.
+しかし、Livewireがこのデータに基づいてコンポーネントをハイドレートしている場合、配列ではなくコレクションであることを知る方法がありません。
 
-Therefore, Livewire supports an alternate state syntax in the form of a tuple (an array of two items):
+したがって、Livewireはタプル（2つのアイテムの配列）という形式の代替状態構文をサポートしています。
 
 ```js
 todos: [
@@ -193,9 +194,9 @@ todos: [
 ],
 ```
 
-When Livewire encounters a tuple when hydrating a component's state, it uses information stored in the second element of the tuple to more intelligently hydrate the state stored in the first.
+Livewireがコンポーネントの状態をハイドレートする際にタプルに遭遇した場合、タプルの2番目の要素に格納された情報を使用して、最初の要素に格納された状態をよりインテリジェントにハイドレートします。
 
-To demonstrate more clearly, here is simplified code showing how Livewire might re-create a collection property based on the above snapshot:
+より明確に示すために、上記のスナップショットに基づいてコレクションプロパティを再作成する方法を示す簡略化されたコードを以下に示します：
 
 ```php
 [ $state, $metadata ] = request('snapshot.state.todos');
@@ -203,13 +204,13 @@ To demonstrate more clearly, here is simplified code showing how Livewire might 
 $collection = new $metadata['class']($state);
 ```
 
-As you can see, Livewire uses the metadata associated with the state to derive the full collection class.
+ご覧のとおり、Livewireは状態に関連付けられたメタデータを使用して、完全なコレクションクラスを導出します。
 
-### Deeply nested tuples
+### 深くネストされたタプル
 
-One distinct advantage of this approach is the ability to dehydrate and hydrate deeply nested properties.
+このアプローチの1つの明確な利点は、深くネストされたプロパティを脱水および再水和できることです。
 
-For example, consider the above `Todos` example, except now with a [Laravel Stringable](https://laravel.com/docs/helpers#method-str) instead of a plain string as the third item in the collection:
+たとえば、上記の`Todos`の例を考えてみてください。ただし、プレーンな文字列の代わりに[Laravel Stringable](https://laravel.com/docs/helpers#method-str)をコレクション内の3番目のアイテムとして使用します。
 
 ```php
 class Todos extends Component
@@ -226,7 +227,7 @@ class Todos extends Component
 }
 ```
 
-The dehydrated snapshot for this component's state would now look like this:
+このコンポーネントの状態に対する脱水スナップショットは、次のようになります。
 
 ```js
 todos: [
@@ -239,9 +240,9 @@ todos: [
 ],
 ```
 
-As you can see, the third item in the collection has been dehydrated into a metadata tuple. The first element in the tuple being the plain string value, and the second being a flag denoting to Livewire that this string is a _stringable_.
+ご覧のとおり、コレクション内の3番目のアイテムはメタデータタプルに脱水されています。タプル内の最初の要素はプレーンな文字列値であり、2番目の要素はこの文字列が_文字列可能_であることをLivewireに示すフラグです。
 
-### Supporting custom property types
+### カスタムプロパティタイプのサポート
 
-Internally, Livewire has hydration support for the most common PHP and Laravel types. However, if you wish to support un-supported types, you can do so using [Synthesizers](/docs/synthesizers) — Livewire's internal mechanism for hydrating/dehydrating non-primitive property types.
+内部的に、Livewireは最も一般的なPHPおよびLaravelタイプのハイドレーションをサポートしています。ただし、サポートされていないタイプをサポートしたい場合は、[Synthesizers](/docs/synthesizers)を使用して行うことができます。これは、非プリミティブプロパティタイプのハイドレーション/脱水のためのLivewireの内部メカニズムです。
 

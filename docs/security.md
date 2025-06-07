@@ -298,16 +298,17 @@ class AppServiceProvider extends ServiceProvider
 
 これにより、`EnsureUserHasRole`ミドルウェアが適用されたページでLivewireコンポーネントを使うと、以降のリクエストでも同じミドルウェアが再適用されます。
 
-> [!warning] ミドルウェア引数はサポートされていません
-> Livewireの永続的ミドルウェア定義では、引数付きのミドルウェアは利用できません。
->
-> ```php
-> // NG例
-> Livewire::addPersistentMiddleware(AuthorizeResource::class.':admin');
->
-> // OK例
-> Livewire::addPersistentMiddleware(AuthorizeResource::class);
-> ```
+:::warning ミドルウェア引数はサポートされていません
+Livewireの永続的ミドルウェア定義では、引数付きのミドルウェアは利用できません。
+
+```php
+// NG例
+Livewire::addPersistentMiddleware(AuthorizeResource::class.':admin');
+
+// OK例
+Livewire::addPersistentMiddleware(AuthorizeResource::class);
+```
+:::
 
 ### Livewire全体へのミドルウェア適用
 
@@ -337,3 +338,13 @@ Livewireでは、各リクエストごとにコンポーネントのスナップ
 もしチェックサムが一致しない場合、Livewireは`CorruptComponentPayloadException`をスローし、リクエストを拒否します。
 
 これにより、悪意のある改ざんによって本来許可されていない操作やコード実行が行われるのを防ぎます。
+
+:::warning
+公開メソッドの制限
+Livewireコンポーネントのpublicメソッドはすべてクライアントから呼び出せるため、意図しないメソッドはprotected/privateにしましょう。
+:::
+
+:::info
+CSRF対策
+Livewireは自動的にCSRFトークンを送信しますが、API連携時などは追加の対策が必要な場合があります。
+:::

@@ -2,7 +2,6 @@
 title: オフライン
 ---
 
-<!-- filepath: /home/yamamoto/oss/translations/livewire/docs/offline.md -->
 リアルタイムアプリケーションでは、ユーザーのデバイスがインターネットに接続されていないことを視覚的に示すと便利です。
 
 Livewire には、そのような場合に使える `wire:offline` ディレクティブが用意されています。

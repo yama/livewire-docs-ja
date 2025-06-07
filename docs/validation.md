@@ -92,10 +92,12 @@ class CreatePost extends Component
 }
 ```
 
-> [!info] Validate attributes don't support Rule objects
-> PHP Attributes are restricted to certain syntaxes like plain strings and arrays. If you find yourself wanting to use run-time syntaxes like Laravel's Rule objects (`Rule::exists(...)`) you should instead [define a `rules()` method](#defining-a-rules-method) in your component.
->
-> Learn more in the documentation on [using Laravel Rule objects with Livewire](#using-laravel-rule-objects).
+:::info `#[Validate]` 属性は Rule オブジェクトをサポートしていません
+PHPの属性（アトリビュート）は、プレーンな文字列や配列など特定の構文のみをサポートしています。Laravelの Rule オブジェクト（例: `Rule::exists(...)`）のような実行時構文を使いたい場合は、代わりにコンポーネント内で [rules() メソッドを定義](#defining-a-rules-method) してください。
+
+LivewireでのLaravel Ruleオブジェクトの利用方法については、[こちらのドキュメント](#using-laravel-rule-objects) もご覧ください。
+:::
+
 
 プロパティのバリデーションを実行するタイミングをより細かく制御したい場合は、`#[Validate]` 属性に `onUpdate: false` パラメータを渡すことができます。これにより、自動バリデーションが無効になり、代わりに `$this->validate()` メソッドを使用してプロパティを手動でバリデートすることが前提となります。
 
@@ -441,11 +443,13 @@ class CreatePost extends Component
 }
 ```
 
-> [!warning] The `rules()` method doesn't validate on data updates
-> When defining rules via the `rules()` method, Livewire will ONLY use these validation rules to validate properties when you run `$this->validate()`. This is different than standard `#[Validate]` attributes which are applied every time a field is updated via something like `wire:model`. To apply these validation rules to a property every time it's updated, you can still use `#[Validate]` with no extra parameters.
+:::warning `rules()` メソッドはデータ更新時にはバリデーションされません
+`rules()` メソッドでルールを定義した場合、Livewireは `$this->validate()` を実行したときのみ、これらのバリデーションルールを適用します。これは、`#[Validate]` 属性が `wire:model` などでフィールドが更新されるたびに適用されるのとは異なります。プロパティが更新されるたびにこれらのバリデーションルールを適用したい場合は、追加のパラメータなしで `#[Validate]` を併用してください。
+:::
 
-> [!warning] Don't conflict with Livewire's mechanisms
-> While using Livewire's validation utilities, your component should **not** have properties or methods named `rules`, `messages`, `validationAttributes` or `validationCustomValues`, unless you're customizing the validation process. Otherwise, those will conflict with Livewire's mechanisms.
+:::warning] Livewireの仕組みと競合しないように
+> Livewireのバリデーション機能を利用する際、コンポーネント内で `rules`、`messages`、`validationAttributes`、`validationCustomValues` という名前のプロパティやメソッドを、バリデーションのカスタマイズ目的以外で定義しないでください。これらはLivewireの内部処理と競合するため、予期しない動作の原因となります。
+:::
 
 ## Using Laravel Rule objects
 
@@ -512,8 +516,9 @@ Livewireのバリデーションユーティリティは、最も一般的なバ
 `$this->resetValidation([?key])` | 指定されたキーのバリデーションエラーをリセットするか、キーが指定されていない場合はすべてのエラーをリセットします
 `$this->getErrorBag()` | Livewireコンポーネントで使用される基礎となるLaravelエラーバッグを取得します
 
-> [!info] Using `$this->addError()` with Form Objects
-> When manually adding errors using `$this->addError` inside of a form object the key will automatically be prefixed with the name of the property the form is assigned to in the parent component. For example, if in your Component you assign the form to a property called `$data`, key will become `data.key`.
+:::info `$this->addError()` をフォームオブジェクトで使う場合
+フォームオブジェクト内で `$this->addError` を使って手動でエラーを追加する場合、キーは親コンポーネントでそのフォームを割り当てたプロパティ名で自動的にプレフィックスされます。たとえば、コンポーネントでフォームを `$data` というプロパティに割り当てている場合、キーは `data.key` となります。
+:::
 
 ## Accessing the validator instance
 

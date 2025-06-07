@@ -2,7 +2,6 @@
 title: コンポーネント
 ---
 
-<!-- filepath: /home/yamamoto/oss/translations/livewire/docs/components.md -->
 Livewireアプリケーションの「コンポーネント」は、UIを構成する基本的な単位です。コンポーネントは状態と振る舞いを組み合わせて、フロントエンドで再利用可能なUIパーツを作成します。ここでは、コンポーネントの作成とレンダリングの基本について解説します。
 
 ## コンポーネントの作成
@@ -19,7 +18,7 @@ php artisan make:livewire CreatePost
 php artisan make:livewire create-post
 ```
 
-このコマンドを実行すると、Livewireはアプリケーション内に2つの新しいファイルを作成します。1つ目はコンポーネントのクラスファイルで、`app/Livewire/CreatePost.php`に生成されます。
+このコマンドを実行すると、Livewireはアプリケーション内に2つの新しいファイルを作成します。ひとつ目はコンポーネントのクラスファイルで、`app/Livewire/CreatePost.php`に生成されます。
 
 ```php
 <?php
@@ -232,7 +231,7 @@ Livewireコンポーネントをレンダリングしている配列をループ
 
 ### 入力とプロパティのバインディング
 
-Livewireの最も強力な機能の1つは、「データバインディング」です。これは、ページ上のフォーム入力とプロパティを自動的に同期させる能力です。
+Livewireの最も強力な機能のひとつは、「データバインディング」です。これは、ページ上のフォーム入力とプロパティを自動的に同期させる能力です。
 
 `CreatePost`コンポーネントの`$title`プロパティをテキスト入力にバインドしてみましょう。`wire:model`ディレクティブを使用します。
 
@@ -246,8 +245,9 @@ Livewireの最も強力な機能の1つは、「データバインディング�
 
 テキスト入力に加えられた変更は、Livewireコンポーネント内の`$title`プロパティと自動的に同期されます。
 
-> [!warning] "なぜコンポーネントが入力中にライブ更新されないのか？"
-> これをブラウザで試して、タイトルが自動的に更新されない理由に混乱している場合は、Livewireは「アクション」が送信されたときにのみコンポーネントを更新するためです。たとえば、送信ボタンを押すときなどです。これにより、ネットワークリクエストが削減され、パフォーマンスが向上します。ユーザーが入力中に「ライブ」更新を有効にするには、代わりに`wire:model.live`を使用できます。データバインディングの詳細については、[プロパティのドキュメント](/docs/properties#data-binding)を参照してください。
+:::warning なぜコンポーネントが入力中にライブ更新されないのか？
+これをブラウザで試して、タイトルが自動的に更新されない理由に混乱している場合は、Livewireは「アクション」が送信されたときにのみコンポーネントを更新するためです。たとえば、送信ボタンを押すときなどです。これにより、ネットワークリクエストが削減され、パフォーマンスが向上します。ユーザーが入力中に「ライブ」更新を有効にするには、代わりに`wire:model.live`を使用できます。データバインディングの詳細については、[プロパティのドキュメント](/docs/properties#data-binding)を参照してください。
+:::
 
 
 Livewireプロパティは非常に強力であり、理解するための重要な概念です。詳細については、[Livewireプロパティのドキュメント](/docs/properties)を参照してください。
@@ -324,8 +324,9 @@ Livewireコンポーネントをページにレンダリングする方法は2�
 <livewire:editor-posts.create-post />
 ```
 
-> [!warning] ケバブケースを使用する必要があります
-> 上記のスニペットのように、コンポーネント名の_ケバブケース_バージョンを使用する必要があります。_StudlyCase_バージョンの名前（`<livewire:CreatePost />`）を使用することは無効であり、Livewireによって認識されません。
+:::warning ケバブケースを使用する必要があります
+上記のスニペットのように、コンポーネント名の_ケバブケース_バージョンを使用する必要があります。_StudlyCase_バージョンの名前（`<livewire:CreatePost />`）を使用することは無効であり、Livewireによって認識されません。
+:::
 
 
 ### コンポーネントへのデータの渡し方
@@ -389,8 +390,9 @@ class CreatePost extends Component
 
 これは、`mount()`メソッド内で`$title`に割り当てるのと実質的に同じです。
 
-> [!warning] これらのプロパティはデフォルトでは反応しません
-> `$title`プロパティは、外部の`:title="$initialValue"`が初回ページ読み込み後に変更されても自動的に更新されません。これは、Livewireを使用する際の一般的な混乱の原因です。特に、VueやReactなどのJavaScriptフレームワークを使用したことがある開発者にとっては、これらの「パラメータ」がそれらのフレームワークにおける「反応するプロップ」のように動作することを前提としています。しかし、心配はいりません。Livewireでは、[プロパティを反応させる](/docs/nesting#reactive-props)オプションがあります。
+:::warning これらのプロパティはデフォルトでは反応しません
+`$title`プロパティは、外部の`:title="$initialValue"`が初回ページ読み込み後に変更されても自動的に更新されません。これは、Livewireを使用する際の一般的な混乱の原因です。特に、VueやReactなどのJavaScriptフレームワークを使用したことがある開発者にとっては、これらの「パラメータ」がそれらのフレームワークにおける「反応するプロップ」のように動作することを前提としています。しかし、心配はいりません。Livewireでは、[プロパティを反応させる](/docs/nesting#reactive-props)オプションがあります。
+:::
 
 
 ## フルページコンポーネント
@@ -810,5 +812,7 @@ Livewireは、`<script>`要素をラップする`@script`ディレクティブ�
 @endscript
 ```
 
-> [!info] `@verbatim@script@endverbatim`および`@verbatim@assets@endverbatim`をBladeコンポーネント内で使用する
-> Bladeコンポーネントを使用してマークアップの一部を抽出する場合、これらのコンポーネント内で`@verbatim@script@endverbatim`および`@verbatim@assets@endverbatim`を使用できます。たとえ同じLivewireコンポーネント内に複数のBladeコンポーネントがあっても。ただし、`@verbatim@script@endverbatim`および`@verbatim@assets@endverbatim`は現在、Livewireコンポーネントのコンテキスト内でのみサポートされています。つまり、BladeコンポーネントをLivewireの外部で使用すると、これらのスクリプトやアセットはページに読み込まれません。
+:::info
+`@verbatim@script@endverbatim`および`@verbatim@assets@endverbatim`をBladeコンポーネント内で使用する
+Bladeコンポーネントを使用してマークアップの一部を抽出する場合、これらのコンポーネント内で`@verbatim@script@endverbatim`および`@verbatim@assets@endverbatim`を使用できます。たとえ同じLivewireコンポーネント内に複数のBladeコンポーネントがあっても。ただし、`@verbatim@script@endverbatim`および`@verbatim@assets@endverbatim`は現在、Livewireコンポーネントのコンテキスト内でのみサポートされています。つまり、BladeコンポーネントをLivewireの外部で使用すると、これらのスクリプトやアセットはページに読み込まれません。
+:::

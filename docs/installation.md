@@ -12,8 +12,9 @@ composer require livewire/livewire
 
 本当にこれだけで完了です。さらに細かいカスタマイズをしたい場合は、このまま読み進めてください。特に必要がなければ、すぐにLivewireの利用を始められます。
 
-> [!warning] `/livewire/livewire.js` が404になる場合
-> 通常、Livewireはアプリケーション内に `/livewire/livewire.js` というパスでJavaScriptアセットを配信するルートを自動的に用意します。多くの環境では問題ありませんが、Nginxで独自の設定をしている場合、このエンドポイントで404エラーが発生することがあります。その場合は、[LivewireのJavaScriptアセットを自分でビルドする](#manually-bundling-livewire-and-alpine)か、[Nginxの設定を調整する](https://benjamincrozat.com/livewire-js-404-not-found)ことで解決できます。
+:::warning `/livewire/livewire.js` が404になる場合
+通常、Livewireはアプリケーション内に `/livewire/livewire.js` というパスでJavaScriptアセットを配信するルートを自動的に用意します。多くの環境では問題ありませんが、Nginxで独自の設定をしている場合、このエンドポイントで404エラーが発生することがあります。その場合は、[LivewireのJavaScriptアセットを自分でビルドする](#manually-bundling-livewire-and-alpine)か、[Nginxの設定を調整する](https://benjamincrozat.com/livewire-js-404-not-found)ことで解決できます。
+:::
 
 ## 設定ファイルの公開
 
@@ -46,8 +47,9 @@ php artisan livewire:publish --config
 
 これらのアセットをページに手動で含めることで、Livewireは自動的にアセットを挿入しないようになります。
 
-> [!warning] AlpineJSはLivewireにバンドルされています
-> AlpineはLivewireのJavaScriptアセットにバンドルされているため、Alpineを使用するすべてのページに `@verbatim`@livewireScripts`@endverbatim` を含める必要があります。たとえそのページでLivewireを使用していなくてもです。
+:::warning AlpineJSはLivewireにバンドルされています
+AlpineはLivewireのJavaScriptアセットにバンドルされているため、Alpineを使用するすべてのページに `@verbatim`@livewireScripts`@endverbatim` を含める必要があります。たとえそのページでLivewireを使用していなくてもです。
+:::
 
 ほとんどの場合必要ありませんが、アプリケーションの `config/livewire.php` ファイル内の `inject_assets` [設定オプション](#publishing-the-configuration-file) を更新することで、Livewireの自動挿入アセット動作を無効にすることができます。
 
@@ -154,16 +156,19 @@ Alpine.plugin(Clipboard)
 Livewire.start()
 ```
 
-> [!tip] Composer update後にアセットを再ビルド
-> LivewireとAlpineを手動でバンドルしている場合は、`composer update` を実行するたびにアセットを再ビルドすることを確認してください。
+:::tip Composer update後にアセットを再ビルド
+LivewireとAlpineを手動でバンドルしている場合は、`composer update` を実行するたびにアセットを再ビルドすることを確認してください。
+:::
 
-> [!warning] Laravel Mixとは互換性がありません
-> LivewireとAlpineJSを手動でバンドルしている場合、Laravel Mixは機能しません。その代わりに、[Viteに切り替えることをお勧めします](https://laravel.com/docs/vite)。
+:::warning Laravel Mixとは互換性がありません
+LivewireとAlpineJSを手動でバンドルしている場合、Laravel Mixは機能しません。その代わりに、[Viteに切り替えることをお勧めします](https://laravel.com/docs/vite)。
+:::
 
 ## Livewireのフロントエンドアセットの公開
 
-> [!warning] アセットの公開は必須ではありません
-> Livewireを実行するためにアセットを公開する必要はありません。特定の必要がある場合のみ行ってください。
+:::warning アセットの公開は必須ではありません
+Livewireを実行するためにアセットを公開する必要はありません。特定の必要がある場合のみ行ってください。
+:::
 
 JavaScriptアセットをLaravel経由ではなく、Webサーバーから直接配信させたい場合は、`livewire:publish` コマンドを使用します。
 

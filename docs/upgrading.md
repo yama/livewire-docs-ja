@@ -14,12 +14,14 @@ php artisan livewire:upgrade
 
 Although the above command can upgrade much of your application, the only way to ensure a complete upgrade is to follow the step-by-step guide on this page.
 
-> [!tip] Hire us to upgrade your app instead
-> If you have a large Livewire application or just don't want to deal with upgrading from version 2 to version 3, you can hire us to handle it for you. [Learn more about our upgrade service here.](/jumpstart)
+:::tip Livewireアプリのアップグレードを代行します
+大規模なLivewireアプリケーションをお持ちの場合や、バージョン2から3へのアップグレード作業を自分で行いたくない場合は、私たちにご依頼いただけます。[アップグレードサービスの詳細はこちら](/jumpstart)
+:::
 
-## Upgrade PHP
+## LivewireはPHP 8.1以上が必要です
 
-Livewire now requires that your application is running on PHP version 8.1 or greater.
+Livewireは、アプリケーションがPHPバージョン8.1以上で動作している必要があります。
+
 
 ## Update Livewire to version 3
 
@@ -29,8 +31,9 @@ Run the following composer command to upgrade your application's Livewire depend
 composer require livewire/livewire "^3.0"
 ```
 
-> [!warning] Livewire 3 package compatibility
-> Most of the major third-party Livewire packages either currently support Livewire 3 or are working on supporting it soon. However, there will inevitably be packages that take longer to release support for Livewire 3.
+:::warning Livewire 3対応パッケージについて
+主要なサードパーティ製Livewireパッケージの多くは、すでにLivewire 3をサポートしているか、まもなく対応予定です。ただし、Livewire 3への対応に時間がかかるパッケージも一部存在する可能性があります。
+:::
 
 ## Clear the view cache
 
