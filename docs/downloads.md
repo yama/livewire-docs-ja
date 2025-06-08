@@ -50,7 +50,8 @@ class ShowInvoice extends Component
     <span>{{ $invoice->date }}</span>
     <span>{{ $invoice->amount }}</span>
 
-    <button type="button" wire:click="download">Download</button> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <button type="button" wire:click="download">Download</button>
 </div>
 ```
 

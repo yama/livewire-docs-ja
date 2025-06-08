@@ -210,7 +210,8 @@ Bladeループ内に`wire:key`属性が存在しないと、Livewireは古い要
 ```blade
 <div>
     @foreach ($posts as $post)
-        <div wire:key="{{ $post->id }}"> <!-- [tl! highlight] -->
+        <!-- highlight-next-line -->
+        <div wire:key="{{ $post->id }}">
             <!-- ... -->
         </div>
     @endforeach
@@ -239,7 +240,9 @@ Livewireの最も強力な機能のひとつは、「データバインディン
 <form>
     <label for="title">Title:</label>
 
-    <input type="text" id="title" wire:model="title"> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <!-- highlight-next-line -->
+    <input type="text" id="title" wire:model="title">
 </form>
 ```
 
@@ -290,7 +293,8 @@ class CreatePost extends Component
 次に、コンポーネントのBladeビューから`save`アクションを呼び出してみましょう。`<form>`要素に`wire:submit`ディレクティブを追加します。
 
 ```blade
-<form wire:submit="save"> <!-- [tl! highlight] -->
+<!-- highlight-next-line -->
+<form wire:submit="save">
     <label for="title">Title:</label>
 
     <input type="text" id="title" wire:model="title">
@@ -382,7 +386,8 @@ use Livewire\Component;
 
 class CreatePost extends Component
 {
-    public $title; // [tl! highlight]
+    // highlight-next-line
+    public $title;
 
     // ...
 }
@@ -466,9 +471,8 @@ use Livewire\Component;
 
 class CreatePost extends Component
 {
-    // ...
-
-    #[Layout('layouts.app')] // [tl! highlight]
+    // highlight-next-line
+    #[Layout('layouts.app')]
     public function render()
     {
         return view('livewire.create-post');
@@ -486,7 +490,8 @@ namespace App\Livewire;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.app')] // [tl! highlight]
+// highlight-next-line
+#[Layout('layouts.app')]
 class CreatePost extends Component
 {
     // ...
@@ -499,7 +504,8 @@ PHP属性はリテラル値のみをサポートしています。動的な値�
 public function render()
 {
     return view('livewire.create-post')
-         ->layout('layouts.app'); // [tl! highlight]
+        // highlight-next-line
+         ->layout('layouts.app');
 }
 ```
 
@@ -519,7 +525,8 @@ public function render()
 public function render()
 {
     return view('livewire.show-posts')
-        ->extends('layouts.app'); // [tl! highlight]
+        // highlight-next-line
+        ->extends('layouts.app');
 }
 ```
 
@@ -530,7 +537,8 @@ public function render()
 {
     return view('livewire.show-posts')
         ->extends('layouts.app')
-        ->section('body'); // [tl! highlight]
+        // highlight-next-line
+        ->section('body');
 }
 ```
 
@@ -558,9 +566,8 @@ use Livewire\Component;
 
 class CreatePost extends Component
 {
-    // ...
-
-    #[Title('Create Post')] // [tl! highlight]
+    // highlight-next-line
+    #[Title('Create Post')]
     public function render()
     {
         return view('livewire.create-post');
@@ -580,7 +587,8 @@ namespace App\Livewire;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Create Post')] // [tl! highlight]
+// highlight-next-line
+#[Title('Create Post')]
 class CreatePost extends Component
 {
     // ...
@@ -593,7 +601,8 @@ class CreatePost extends Component
 public function render()
 {
     return view('livewire.create-post')
-         ->title('Create Post'); // [tl! highlight]
+        // highlight-next-line
+         ->title('Create Post');
 }
 ```
 
@@ -607,7 +616,8 @@ public function render()
 <!-- resources/views/components/layouts/app.blade.php -->
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', $lang ?? app()->getLocale()) }}"> <!-- [tl! highlight] -->
+<!-- highlight-next-line -->
+<html lang="{{ str_replace('_', '-', $lang ?? app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -623,7 +633,8 @@ public function render()
 次に、コンポーネントビュー内でルート要素の外に`<x-slot>`要素を定義します。
 
 ```blade
-<x-slot:lang>fr</x-slot> // このコンポーネントはフランス語です <!-- [tl! highlight] -->
+<!-- highlight-next-line -->
+<x-slot:lang>fr</x-slot> // このコンポーネントはフランス語です
 
 <div>
     // フランス語のコンテンツがここに入ります...
@@ -659,7 +670,8 @@ class ShowPost extends Component
 {
     public Post $post;
 
-    public function mount($id) // [tl! highlight]
+    // highlight-next-line
+    public function mount($id)
     {
         $this->post = Post::findOrFail($id);
     }
@@ -699,7 +711,8 @@ class ShowPost extends Component
 {
     public Post $post;
 
-    public function mount(Post $post) // [tl! highlight]
+    // highlight-next-line
+    public function mount(Post $post)
     {
         $this->post = $post;
     }
@@ -725,7 +738,8 @@ use App\Models\Post;
 
 class ShowPost extends Component
 {
-    public Post $post; // [tl! highlight]
+    // highlight-next-line
+    public Post $post;
 
     public function render()
     {

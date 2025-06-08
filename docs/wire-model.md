@@ -33,13 +33,15 @@ class CreatePost extends Component
     <label>
         <span>Title</span>
 
-        <input type="text" wire:model="title"> <!-- [tl! highlight] -->
+        <!-- highlight-next-line -->
+        <input type="text" wire:model="title">
     </label>
 
     <label>
         <span>Content</span>
 
-        <textarea wire:model="content"></textarea> <!-- [tl! highlight] -->
+        <!-- highlight-next-line -->
+        <textarea wire:model="content"></textarea>
     </label>
 
 	<button type="submit">Save</button>
@@ -247,7 +249,8 @@ Livewireは、`<select>` ドロップダウンとの連携を簡単にします�
 </select>
 
 <!-- Cities dependent select menu... -->
-<select wire:model.live="selectedCity" wire:key="{{ $selectedState }}"> <!-- [tl! highlight] -->
+<!-- highlight-next-line -->
+<select wire:model.live="selectedCity" wire:key="{{ $selectedState }}">
     @foreach (City::whereStateId($selectedState->id)->get() as $city)
         <option value="{{ $city->id }}">{{ $city->label }}</option>
     @endforeach

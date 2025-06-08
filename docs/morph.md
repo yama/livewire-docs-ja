@@ -73,7 +73,9 @@ class Todos extends Component
 
 Livewireがコンポーネントの更新を処理する際、元のDOMを新しくレンダリングされたHTMLに _モーフィング_ します。次のビジュアライゼーションは、その仕組みを直感的に理解するのに役立ちます。
 
+```html
 <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/844600772?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="morph_basic"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+```
 
 ご覧の通り、Livewireは両方のHTMLツリーを同時に走査します。両方のツリー内の各要素に出会うと、それらを比較して変更、追加、削除を判断します。変更が検出されると、適切な変更が外科的に行われます。
 
@@ -103,7 +105,9 @@ Livewireがコンポーネントの更新を処理する際、元のDOMを新し
 
 ユーザーがフォームを送信しようとしたが、バリデーションエラーに遭遇した場合、次のような問題が発生します。
 
+```html
 <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/844600840?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="morph_problem"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+```
 
 ご覧の通り、Livewireが新しいエラーメッセージ用の `<div>` に遭遇すると、それを既存の `<div>` に対してインプレースで変更するべきか、新しい `<div>` を中間に挿入するべきかを判断できません。
 
@@ -132,7 +136,9 @@ Livewireのモーフィングアルゴリズムには、要素を変更する前
 
 「先読み」アルゴリズムの動作を示すビジュアライゼーションは次のとおりです。
 
+```html
 <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/844600800?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="morph_lookahead"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+```
 
 ### モーフマーカーの注入
 
@@ -146,11 +152,13 @@ Livewireのモーフィングアルゴリズムには、要素を変更する前
         <input wire:model="title">
     </div>
 
-    <!--[if BLOCK]><![endif]--> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <!--[if BLOCK]><![endif]-->
     @if ($errors->has('title'))
         <div>Error: {{ $errors->first('title') }}</div>
     @endif
-    <!--[if ENDBLOCK]><![endif]--> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <!--[if ENDBLOCK]><![endif]-->
 
     <div>
         <button>Save</button>
@@ -178,11 +186,13 @@ Livewireのモーフィングアルゴリズムには、要素を変更する前
         <input wire:model="title">
     </div>
 
-    <div> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <div>
         @if ($errors->has('title'))
             <div>{{ $errors->first('title') }}</div>
         @endif
-    </div> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    </div>
 
     <div>
         <button>Save</button>

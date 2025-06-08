@@ -79,7 +79,8 @@ public function delete($id)
     $post = Post::find($id);
 
     // ユーザーが所有者でない場合はAuthorizationExceptionがスローされます
-    $this->authorize('delete', $post); // [tl! highlight]
+    // highlight-next-line
+    $this->authorize('delete', $post);
 
     $post->delete();
 }
@@ -186,7 +187,8 @@ use Livewire\Attributes\Locked;
 
 class ShowPost extends Component
 {
-    #[Locked] // [tl! highlight]
+    // highlight-next-line
+    #[Locked]
     public $postId;
 
     public function mount($postId)
@@ -226,7 +228,8 @@ class ShowPost extends Component
     {
         $post = Post::find($this->postId);
 
-        $this->authorize('delete', $post); // [tl! highlight]
+        // highlight-next-line
+        $this->authorize('delete', $post);
 
         $post->delete();
     }
@@ -249,12 +252,64 @@ Livewireコンポーネントが、ルートレベルで[認可ミドルウェ�
 
 ```php
 Route::get('/post/{post}', App\Livewire\UpdatePost::class)
-    ->middleware('can:update,post'); // [tl! highlight]
+    // highlight-next-line
+    ->middleware('can:update,post');
 ```
 
 Livewireは、その後のネットワークリクエストでもミドルウェアを再適用します。これをLivewireでは「永続的ミドルウェア」と呼びます。
 
 永続的ミドルウェアは、初回ページロード後に認可ルールやユーザー権限が変更された場合でも、セキュリティを維持します。
+
+より詳しいシナリオ例を見てみましょう。
+
+```php
+Route::get('/post/{post}', App\Livewire\UpdatePost::class)
+    // highlight-next-line
+    ->middleware('can:update,post');
+```
+
+```php
+<?php
+
+use App\Models\Post;
+use Livewire\Component;
+use Livewire\Attributes\Validate;
+
+class UpdatePost extends Component
+{
+    public Post $post;
+
+    #[Validate('required|min:5')]
+    public $title = '';
+
+    public $content = '';
+
+    public function mount()
+    {
+        $this->title = $this->post->title;
+        $this->content = $this->post->content;
+    }
+
+    public function update()
+    {
+        $this->post->update([
+            'title' => $this->title,
+            'content' => $this->content,
+        ]);
+    }
+}
+```
+
+ご覧の通り、`can:update,post`ミドルウェアがルートレベルで適用されています。つまり、投稿を更新する権限がないユーザーはページ自体を閲覧できません。
+
+しかし、次のようなシナリオを考えてみてください：
+* ページを読み込む
+* ページ読み込み後に更新権限を失う
+* 権限を失った状態で投稿の更新を試みる
+
+Livewireでページが一度正常に読み込まれた場合、「その後の投稿更新リクエスト時にも`can:update,post`ミドルウェアは再度適用されるのか？ それとも認可されていないユーザーでも更新できてしまうのか？」と疑問に思うかもしれません。
+
+Livewireには、元のエンドポイントのミドルウェアを内部的に再適用する仕組みがあるため、このような場合でもセキュリティが保たれます。
 
 ### 永続的ミドルウェアの設定
 

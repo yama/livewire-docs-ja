@@ -70,10 +70,12 @@ use App\Models\Post;
 
 class CreatePost extends Component
 {
-    #[Validate('required|min:3')] // [tl! highlight]
+    // highlight-next-line
+    #[Validate('required|min:3')]
 	public $title = '';
 
-    #[Validate('required|min:3')] // [tl! highlight]
+    // highlight-next-line
+    #[Validate('required|min:3')]
     public $content = '';
 
     public function save()
@@ -300,7 +302,8 @@ use App\Models\Post;
 
 class CreatePost extends Component
 {
-    #[Validate] // [tl! highlight]
+    // highlight-next-line
+    #[Validate]
 	public $title = '';
 
     public $content = '';
@@ -479,7 +482,8 @@ class UpdatePost extends Form
         return [
             'title' => [
                 'required',
-                Rule::unique('posts')->ignore($this->post), // [tl! highlight]
+                // highlight-next-line
+                Rule::unique('posts')->ignore($this->post),
             ],
             'content' => 'required|min:5',
         ];
@@ -493,7 +497,8 @@ class UpdatePost extends Form
 
     public function update()
     {
-        $this->validate(); // [tl! highlight]
+        // highlight-next-line
+        $this->validate();
 
         $this->post->update($this->all());
 

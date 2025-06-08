@@ -20,7 +20,8 @@ Livewireの `#[Isolate]` クラス属性を使うことで、コンポーネン�
 use Livewire\Attributes\Isolate;
 use Livewire\Component;
 
-#[Isolate] // [tl! highlight]
+// highlight-next-line
+#[Isolate]
 class ShowPost extends Component
 {
     // ...
@@ -43,7 +44,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\Attributes\Lazy;
 
-#[Lazy(isolate: false)] // [tl! highlight]
+// highlight-next-line
+#[Lazy(isolate: false)]
 class Revenue extends Component
 {
     // ...

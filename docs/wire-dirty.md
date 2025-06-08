@@ -16,6 +16,8 @@ Livewireでは、`wire:dirty` ディレクティブを使って、ページ上�
 
 例えば、未保存の変更があることを示す「Unsaved changes...」メッセージを表示する `UpdatePost` フォームの例です。
 
+例として、未保存の入力がある場合に「Unsaved changes...（未保存の変更があります）」という視覚的な表示でユーザーに知らせる `UpdatePost` フォームの例を示します。
+
 ```blade
 <form wire:submit="update">
     <input type="text" wire:model="title">
@@ -24,7 +26,8 @@ Livewireでは、`wire:dirty` ディレクティブを使って、ページ上�
 
     <button type="submit">Update</button>
 
-    <div wire:dirty>Unsaved changes...</div> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <div wire:dirty>Unsaved changes...</div>
 </form>
 ```
 
@@ -44,11 +47,14 @@ Livewireでは、`wire:dirty` ディレクティブを使って、ページ上�
 
 例えば、`wire:model.blur` を使って、入力欄からフォーカスが外れたタイミングでサーバーにプロパティを即時反映させる場合、`wire:target` を `wire:dirty` と組み合わせて、特定のプロパティだけ「dirty」表示を出すこともできます。
 
+たとえば、titleプロパティが変更された場合にのみ「未保存」の表示を出す例を示します：
+
 ```blade
 <form wire:submit="update">
     <input wire:model.blur="title">
 
-    <div wire:dirty wire:target="title">Unsaved title...</div> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <div wire:dirty wire:target="title">Unsaved title...</div>
 
     <button type="submit">Update</button>
 </form>
@@ -57,6 +63,8 @@ Livewireでは、`wire:dirty` ディレクティブを使って、ページ上�
 ## クラスのトグル
 
 要素全体の表示・非表示ではなく、入力欄が「dirty」状態のときだけ特定のCSSクラスを付与したい場合にも活用できます。
+
+以下は、ユーザーが入力欄に文字を入力すると枠線が黄色になり「未保存」状態を示し、その後フィールドからフォーカスが外れると枠線が消えてサーバー側で保存された状態になる例です：
 
 ```blade
 <input wire:model.blur="title" wire:dirty.class="border-yellow-500">

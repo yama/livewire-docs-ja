@@ -26,6 +26,8 @@ title: wire:current ディレクティブ
 
 完全一致でのみ適用したい場合は `.exact` モディファイアを追加します。
 
+たとえば、ユーザーが「/posts」にアクセスしたときに「Dashboard」リンクがハイライトされないように、厳密一致を使いたい場合の例を示します：
+
 ```blade
 <nav>
     <a href="/" wire:current.exact="font-bold">Dashboard</a>

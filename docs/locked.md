@@ -18,7 +18,8 @@ use Livewire\Component;
 
 class ShowPost extends Component
 {
-	#[Locked] // [tl! highlight]
+    // highlight-next-line
+	#[Locked]
     public $id;
 
     public function mount($postId)
@@ -38,7 +39,8 @@ class ShowPost extends Component
 ```php
 class ShowPost extends Component
 {
-   public Post $post; // [tl! highlight]
+    // highlight-next-line
+   public Post $post;
 
    public function mount($postId)
    {

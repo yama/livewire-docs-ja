@@ -155,7 +155,8 @@ Livewireでは、`@persist`ディレクティブを使用してこれを実現�
 
 ```html
 @persist('scrollbar')
-<div class="overflow-y-scroll" wire:scroll> <!-- [tl! highlight] -->
+<!-- highlight-next-line -->
+<div class="overflow-y-scroll" wire:scroll>
     <!-- ... -->
 </div>
 @endpersist
@@ -243,7 +244,9 @@ document.addEventListener('livewire:navigated', () => {
 
     <!-- Fathom Analytics -->
     @if (! config('app.debug'))
-        <script src="https://cdn.usefathom.com/script.js" data-site="ABCDEFG" data-spa="auto" defer></script> <!-- [tl! highlight] -->
+        <script src="https://cdn.usefathom.com/script.js" data-site="ABCDEFG" 
+        <!-- highlight-next-line -->
+        data-spa="auto" defer></script>
     @endif
 </head>
 ```

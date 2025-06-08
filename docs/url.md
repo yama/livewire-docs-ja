@@ -59,7 +59,8 @@ use App\Models\User;
 
 class ShowUsers extends Component
 {
-    #[Url] // [tl! highlight]
+    // highlight-next-line
+    #[Url]
     public $search = '';
 
     public function render()
@@ -99,8 +100,9 @@ class ShowUsers extends Component
 ```
 
 ### null許容プロパティ
+By default, if a page is loaded with an empty query string entry like `?search=`, Livewire will treat that value as an empty string. In many cases, this is expected, however there are times when you want `?search=` to be treated as `null`.
 
-デフォルトでは、`?search=`のように空のクエリ値があると、Livewireはそれを空文字列として扱います。ただし、`?search=`を`null`として扱いたい場合は、nullable型ヒントを使います：
+In these cases, you can use a nullable typehint like so:
 
 ```php
 use Livewire\Attributes\Url;
@@ -109,7 +111,8 @@ use Livewire\Component;
 class ShowUsers extends Component
 {
     #[Url]
-    public ?string $search; // [tl! highlight]
+    // highlight-next-line
+    public ?string $search;
 
     // ...
 }
@@ -119,7 +122,9 @@ class ShowUsers extends Component
 
 ## エイリアスの利用
 
-クエリ文字列で表示される名前は自由に変更できます。たとえば、`$search`プロパティを`q`という短い名前でURLに出したい場合、`#[Url]`属性の`as`パラメータを使います：
+Livewireでは、URLのクエリ文字列に表示される名前を自由に制御できます。たとえば、`$search`プロパティがあっても、実際のプロパティ名を隠したり、短い名前に変更したりできます。
+
+プロパティの名前を変更するには、`#[Url]`属性の`as`パラメータを使います：
 
 ```php
 use Livewire\Attributes\Url;
@@ -163,7 +168,9 @@ class ShowUsers extends Component
 
 ## ページロード時も常に表示
 
-デフォルトでは、`$search`の初期値が空文字列の場合、URLに`?search`は表示されません。値が空でも常にクエリ文字列に出したい場合は、`keep`パラメータを使います：
+デフォルトでは、Livewireはページ上で値が変更された後にのみ、クエリ文字列に値を表示します。たとえば、`$search`のデフォルト値が空文字列（`""`）の場合、実際の検索入力が空のときはURLに値は表示されません。
+
+値が空の場合でも常に`?search`をクエリ文字列に含めたい場合は、`#[Url]`属性に`keep`パラメータを指定できます：
 
 ```php
 use Livewire\Attributes\Url;

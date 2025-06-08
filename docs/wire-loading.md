@@ -36,6 +36,8 @@ Livewireでは、`wire:loading` を使うことでローディングインジケ
 
 要素全体の表示・非表示だけでなく、リクエスト中に特定のCSSクラスを付与・削除してスタイルを変えることも可能です。例えば、フォーム送信中に「保存」ボタンの透明度を下げる例です。
 
+以下は、フォーム送信中に「保存」ボタンを薄く表示するために [Tailwind](https://tailwindcss.com/) の `opacity-50` クラスを使うシンプルな例です：
+
 ```blade
 <button wire:loading.class="opacity-50">保存</button>
 ```

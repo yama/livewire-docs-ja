@@ -2,6 +2,8 @@
 title: イベント
 ---
 
+Livewire には強力なイベントシステムが用意されており、ページ上の異なるコンポーネント間で通信するために利用できます。内部的にブラウザのイベントを利用しているため、Livewire のイベントシステムを使って Alpine コンポーネントや、プレーンな JavaScript とも連携できます。
+
 イベントをトリガーするには、コンポーネント内のどこからでも `dispatch()` メソッドを使い、ページ上の他のコンポーネントからそのイベントをリッスンできます。
 
 ## イベントの発火
@@ -19,7 +21,8 @@ class CreatePost extends Component
     {
         // ...
 
-        $this->dispatch('post-created'); // [tl! highlight]
+        // highlight-next-line
+        $this->dispatch('post-created');
     }
 }
 ```
@@ -42,11 +45,13 @@ Livewireコンポーネントでイベントをリッスンするには、特定
 
 ```php
 use Livewire\Component;
-use Livewire\Attributes\On; // [tl! highlight]
+// highlight-next-line
+use Livewire\Attributes\On;
 
 class Dashboard extends Component
 {
-	#[On('post-created')] // [tl! highlight]
+    // highlight-next-line
+	#[On('post-created')]
     public function updatePostList($title)
     {
 		// ...
@@ -73,7 +78,8 @@ class UpdatePost extends Component
     {
         // ...
 
-        $this->dispatch("post-updated.{$post->id}"); // [tl! highlight]
+        // highlight-next-line
+        $this->dispatch("post-updated.{$post->id}");
     }
 }
 ```
@@ -83,13 +89,15 @@ class UpdatePost extends Component
 ```php
 use Livewire\Component;
 use App\Models\Post;
-use Livewire\Attributes\On; // [tl! highlight]
+// highlight-next-line
+use Livewire\Attributes\On;
 
 class ShowPost extends Component
 {
     public Post $post;
 
-	#[On('post-updated.{post.id}')] // [tl! highlight]
+    // highlight-next-line
+	#[On('post-updated.{post.id}')]
     public function refreshPost()
     {
 		// ...
@@ -286,14 +294,8 @@ Livewireの `dispatch()` メソッドと同様に、メソッドの第二引数�
 
 Alpineを使用したイベントの発火について詳しくは、[Alpineのドキュメント](https://alpinejs.dev/magics/dispatch) を参照してください。
 
-:::tip
-イベント名の命名規則
+:::tip イベント名の命名規則
 Livewireのイベント名は自由に命名できますが、他のイベントと衝突しないように注意してください。
-:::
-
-:::info
-イベントリスナーの詳細
-Livewireのイベントリスナーは、コンポーネント間の通信や外部JavaScriptとの連携にも利用できます。
 :::
 
 :::tip イベントが不要な場合
@@ -485,7 +487,8 @@ Laravel Echo がインストールされ、設定されている場合、Livewir
 
 namespace App\Livewire;
 
-use Livewire\Attributes\On; // [tl! highlight]
+// highlight-next-line
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class OrderTracker extends Component
@@ -509,7 +512,8 @@ class OrderTracker extends Component
 
 namespace App\Livewire;
 
-use Livewire\Attributes\On; // [tl! highlight]
+// highlight-next-line
+use Livewire\Attributes\On;
 use Livewire\Component;
 use App\Models\Order;
 

@@ -2,30 +2,26 @@
 title: アップグレード
 ---
 
-## Automated upgrade tool
+## アップグレード自動化ツール
 
-To save you time upgrading, we've included an Artisan command to automate as many parts of the upgrade process as possible.
+アップグレード作業の手間を省くため、できる限り多くのアップグレード作業を自動化するArtisanコマンドを用意しています。
 
-After [installing Livewire version 3](/docs/upgrading#update-livewire-to-version-3), run the following command, and you will receive prompts to upgrade each breaking change automatically:
+[Livewireバージョン3のインストール](/docs/upgrading#update-livewire-to-version-3)後、以下のコマンドを実行すると、各ブレイキングチェンジごとに自動アップグレードのプロンプトが表示されます。
 
 ```shell
 php artisan livewire:upgrade
 ```
 
-Although the above command can upgrade much of your application, the only way to ensure a complete upgrade is to follow the step-by-step guide on this page.
-
-:::tip Livewireアプリのアップグレードを代行します
-大規模なLivewireアプリケーションをお持ちの場合や、バージョン2から3へのアップグレード作業を自分で行いたくない場合は、私たちにご依頼いただけます。[アップグレードサービスの詳細はこちら](/jumpstart)
-:::
+上記コマンドで多くの部分を自動アップグレードできますが、完全なアップグレードを保証するには、このページの手順ガイドに従う必要があります。
 
 ## LivewireはPHP 8.1以上が必要です
 
 Livewireは、アプリケーションがPHPバージョン8.1以上で動作している必要があります。
 
 
-## Update Livewire to version 3
+## Livewire 3へのアップデート
 
-Run the following composer command to upgrade your application's Livewire dependency from version 2 to 3:
+アプリケーションのLivewire依存バージョンを2から3へアップグレードするには、以下のcomposerコマンドを実行してください:
 
 ```shell
 composer require livewire/livewire "^3.0"
@@ -35,21 +31,21 @@ composer require livewire/livewire "^3.0"
 主要なサードパーティ製Livewireパッケージの多くは、すでにLivewire 3をサポートしているか、まもなく対応予定です。ただし、Livewire 3への対応に時間がかかるパッケージも一部存在する可能性があります。
 :::
 
-## Clear the view cache
+## ビューキャッシュのクリア
 
-Run the following Artisan command from your application's root directory to clear any cached/compiled Blade views and force Livewire to re-compile them to be Livewire 3 compatible:
+アプリケーションのルートディレクトリで以下のArtisanコマンドを実行し、キャッシュ・コンパイル済みBladeビューをクリアして、Livewire 3互換に再コンパイルさせてください:
 
 ```shell
 php artisan view:clear
 ```
 
-## Merge new configuration
+## 新しい設定のマージ
 
-Livewire 3 has changed multiple configuration options. If your application has a published configuration file (`config/livewire.php`), you will need to update it to account for the following changes.
+Livewire 3では複数の設定オプションが変更されています。アプリケーションで設定ファイル（`config/livewire.php`）を公開している場合は、以下の変更点を反映してください。
 
-### New configuration
+### 新しく追加された設定
 
-The following configuration keys have been introduced in version 3:
+バージョン3で以下の設定キーが追加されました:
 
 ```php
 'legacy_model_binding' => false,
@@ -63,105 +59,105 @@ The following configuration keys have been introduced in version 3:
 'pagination_theme' => 'tailwind',
 ```
 
-You can reference [Livewire's new configuration file on GitHub](https://github.com/livewire/livewire/blob/master/config/livewire.php) for additional option descriptions and copy-pastable code.
+追加のオプション説明やコピペ可能なコードについては、[Livewireの新しい設定ファイル（GitHub）](https://github.com/livewire/livewire/blob/master/config/livewire.php) を参照してください。
 
-### Changed configuration
+### 変更された設定
 
-The following configuration items have been updated with new default values:
+以下の設定項目は、新しいデフォルト値に更新されました。
 
-#### New class namespace
+#### 新しいクラスnamespace
 
-Livewire's default `class_namespace` has changed from `App\Http\Livewire` to `App\Livewire`. You are welcome to keep the old namespace configuration value; however, if you choose to update your configuration to the new namespace, you will have to move your Livewire components to `app/Livewire`:
+Livewireのデフォルトの `class_namespace` は `App\Http\Livewire` から `App\Livewire` に変更されました。従来のnamespace設定値のままでも問題ありませんが、新しいnamespaceに変更する場合は、Livewireコンポーネントを `app/Livewire` ディレクトリに移動する必要があります。
 
 ```php
 'class_namespace' => 'App\\Http\\Livewire', // [tl! remove]
 'class_namespace' => 'App\\Livewire', // [tl! add]
 ```
 
-#### New layout view path
+#### 新しいレイアウトビューのパス
 
-When rendering full-page components in version 2, Livewire would use `resources/views/layouts/app.blade.php` as the default layout Blade component.
+バージョン2では、Livewireはフルページコンポーネントをレンダリングする際、デフォルトで `resources/views/layouts/app.blade.php` をレイアウトBladeコンポーネントとして使用していました。
 
-Because of a growing community preference for anonymous Blade components, Livewire 3 has changed the default location to: `resources/views/components/layouts/app.blade.php`.
+匿名Bladeコンポーネントへのコミュニティの支持が高まっているため、Livewire 3ではデフォルトの場所が `resources/views/components/layouts/app.blade.php` に変更されました。
 
 ```php
 'layout' => 'layouts.app', // [tl! remove]
 'layout' => 'components.layouts.app', // [tl! add]
 ```
 
-### Removed configuration
+### 削除された設定
 
-Livewire no longer recognizes the following configuration items.
+Livewire 3では、以下の設定項目は認識されなくなりました。
 
 #### `app_url`
 
-If your application is served under a non-root URI, in Livewire 2 you could use the `app_url` configuration option to configure the URL Livewire uses to make AJAX requests to.
+アプリケーションがルート以外のURIで提供されている場合、Livewire 2では `app_url` 設定オプションを使ってLivewireがAJAXリクエストに使用するURLを設定できました。
 
-In this case, we've found a string configuration to be too rigid. Therefore, Livewire 3 has chosen to use runtime configuration instead. You can reference our documentation on [configuring Livewire's update endpoint](/docs/installation#configuring-livewires-update-endpoint) for more information.
+しかし、このような文字列による設定は柔軟性に欠けるため、Livewire 3ではランタイム設定方式に変更されました。詳細は[Livewireのアップデートエンドポイントの設定](/docs/installation#configuring-livewires-update-endpoint)に関するドキュメントを参照してください。
 
 #### `asset_url`
 
-In Livewire 2, if your application was served under a non-root URI, you would use the `asset_url` configuration option to configure the base URL that Livewire uses to serve its JavaScript assets.
+Livewire 2では、アプリケーションがルート以外のURIで提供されている場合、`asset_url` 設定オプションを使ってLivewireのJavaScriptアセットのベースURLを設定できました。
 
-Livewire 3 has instead chosen a runtime configuration strategy. You can reference our documentation on [configuring Livewire's script asset endpoint](/docs/installation#customizing-the-asset-url) for more information.
+Livewire 3では、こちらもランタイム設定方式に変更されています。詳細は[Livewireのスクリプトアセットエンドポイントのカスタマイズ](/docs/installation#customizing-the-asset-url)に関するドキュメントを参照してください。
 
 #### `middleware_group`
 
-Because Livewire now exposes a more flexible way to customize its update endpoint, the `middleware_group` configuration option has been removed.
+Livewireはアップデートエンドポイントのカスタマイズ方法がより柔軟になったため、`middleware_group` 設定オプションは削除されました。
 
-You can reference our documentation on [customizing Livewire's update endpoint](/docs/installation#configuring-livewires-update-endpoint) for more information on applying custom middleware to Livewire requests.
+Livewireリクエストにカスタムミドルウェアを適用する方法については、[Livewireのアップデートエンドポイントの設定](/docs/installation#configuring-livewires-update-endpoint)のドキュメントを参照してください。
 
 #### `manifest_path`
 
-Livewire 3 no longer uses a manifest file for component autoloading. Therefore, the `manifest_path` configuration is no longer necessary.
+Livewire 3では、コンポーネントのオートローディングにマニフェストファイルを使用しなくなりました。そのため、`manifest_path` 設定は不要となりました。
 
 #### `back_button_cache`
 
-Because Livewire 3 now offers an [SPA experience for your application using `wire:navigate`](/docs/navigate), the `back_button_cache` configuration is no longer necessary.
+Livewire 3では [`wire:navigate`](/docs/navigate) を利用したSPA体験が標準となったため、`back_button_cache` 設定も不要となりました。
 
-## Livewire app namespace
+## Livewireのアプリケーションnamespace
 
-In version 2, Livewire components were generated and recognized automatically under the `App\Http\Livewire` namespace.
+バージョン2では、Livewireコンポーネントは自動的に `App\\Http\\Livewire` namespaceで生成・認識されていました。
 
-Livewire 3 has changed this default to: `App\Livewire`.
+Livewire 3では、このデフォルトが `App\\Livewire` に変更されました。
 
-You can either move all of your components to the new location or add the following configuration to your application's `config/livewire.php` configuration file:
+すべてのコンポーネントを新しい場所に移動するか、アプリケーションの `config/livewire.php` 設定ファイルに以下の設定を追加してください:
 
 ```php
 'class_namespace' => 'App\\Http\\Livewire',
 ```
 
-### Discovery
+### ディスカバリー（自動検出）
 
-With Livewire 3, there is no manifest present, and there is therefore nothing to “discover” in relation to Livewire Components, and you can safely remove any livewire:discover references from your build scripts without issue.
+Livewire 3ではマニフェストが存在しないため、Livewireコンポーネントに関して「検出」するものはありません。ビルドスクリプトから livewire:discover の参照を安全に削除できます。
 
-## Page component layout view
+## ページコンポーネントのレイアウトビュー
 
-When rendering Livewire components as full pages using a syntax like the following:
+次のような構文でLivewireコンポーネントをフルページとしてレンダリングする場合:
 
 ```php
 Route::get('/posts', ShowPosts::class);
 ```
 
-The Blade layout file used by Livewire to render the component has changed from `resources/views/layouts/app.blade.php` to `resources/views/components/layouts/app.blade.php`:
+Livewireがコンポーネントをレンダリングする際に使用するBladeレイアウトファイルは、`resources/views/layouts/app.blade.php` から `resources/views/components/layouts/app.blade.php` に変更されました。
 
 ```shell
 resources/views/layouts/app.blade.php #[tl! remove]
 resources/views/components/layouts/app.blade.php #[tl! add]
 ```
 
-You can either move your layout file to the new location or apply the following configuration inside your application's `config/livewire.php` configuration file:
+あなたは、レイアウトファイルを新しい場所に移動するか、アプリケーションの `config/livewire.php` 設定ファイルに以下の設定を適用することができます:
 
 ```php
 'layout' => 'layouts.app',
 ```
 
-For more information, check out the documentation on [creating and using a page-component layout](/docs/components#layout-files).
+詳細については、[creating and using a page-component layout](/docs/components#layout-files) に関するドキュメントを参照してください。
 
 
 ## Eloquent model binding
 
-Livewire 2 supported `wire:model` binding directly to Eloquent model properties. For example, the following was a common pattern:
+Livewire 2では、`wire:model` を使ってEloquentモデルのプロパティに直接バインディングすることができました。例えば、以下のような使い方が一般的でした:
 
 ```php
 public Post $post;
@@ -177,33 +173,33 @@ protected $rules = [
 <input wire:model="post.description">
 ```
 
-In Livewire 3, binding directly to Eloquent models has been disabled in favor of using individual properties, or extracting [Form Objects](/docs/forms#extracting-a-form-object).
+Livewire 3では、Eloquentモデルへの直接バインディングは廃止され、個別プロパティの利用や[フォームオブジェクト](/docs/forms#extracting-a-form-object)への抽出が推奨されています。
 
-However, because this behavior is so heavily relied upon in Livewire applications, version 3 maintains support for this behavior via a configuration item in `config/livewire.php`:
+ただし、この動作は多くのLivewireアプリケーションで広く利用されているため、バージョン3でも `config/livewire.php` の設定項目によって引き続きサポートされています。
 
 ```php
 'legacy_model_binding' => true,
 ```
 
-By setting `legacy_model_binding` to `true`, Livewire will handle Eloquent model properties exactly as it did in version 2.
+`legacy_model_binding` を `true` に設定することで、Livewireはバージョン2と同様にEloquentモデルプロパティを扱います。
 
 ## AlpineJS
 
-Livewire 3 ships with [AlpineJS](https://alpinejs.dev) by default.
+Livewire 3はデフォルトで [AlpineJS](https://alpinejs.dev) を同梱しています。
 
-If you manually include Alpine in your Livewire application, you will need to remove it, so that Livewire's built-in version doesn't conflict.
+もし手動でAlpineをLivewireアプリケーションに読み込んでいる場合は、Livewire内蔵バージョンと競合しないよう削除してください。
 
-### Including Alpine via a script tag
+### scriptタグでAlpineを読み込む場合
 
-If you include Alpine into your application via a script tag like the following, you can remove it entirely and Livewire will load its internal version instead:
+以下のようなscriptタグでAlpineを読み込んでいる場合は、完全に削除しても問題ありません。Livewireが内部でAlpineを自動的に読み込みます。
 
 ```html
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> <!-- [tl! remove] -->
 ```
 
-### Including plugins via a script tag
+### プラグインをscriptタグ経由で読み込む場合
 
-Livewire 3 now ships with the following Alpine plugins out-of-the-box:
+Livewire 3は、以下のAlpineプラグインを標準で同梱しています。
 
 * [Anchor](https://alpinejs.dev/plugins/anchor)
 * [Collapse](https://alpinejs.dev/plugins/collapse)
@@ -213,18 +209,18 @@ Livewire 3 now ships with the following Alpine plugins out-of-the-box:
 * [Morph](https://alpinejs.dev/plugins/morph)
 * [Persist](https://alpinejs.dev/plugins/persist)
 
-It is worth keeping an eye on changes to the [package.json](https://github.com/livewire/livewire/blob/main/package.json) file, as new Alpine plugins may be added!
+新しいAlpineプラグインが追加される可能性があるため、[package.json](https://github.com/livewire/livewire/blob/main/package.json) ファイルの変更に注意を払う価値があります！
 
-If you have previously included any of these in your application via `<script>` tags like below, you should remove them along with Alpine's core:
+以前、以下のように `<script>` タグを介してこれらのプラグインのいずれかをアプリケーションに含めていた場合は、Alpineのコアと一緒に削除する必要があります。
 
 ```html
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script> <!-- [tl! remove:1] -->
 <!-- ... -->
 ```
 
-### Accessing the Alpine global via a script tag
+### scriptタグ経由でAlpineグローバルにアクセスする場合
 
-If you are currently accessing the `Alpine` global object from a script tag like so:
+現在、以下のようにscriptタグから `Alpine` グローバルオブジェクトにアクセスしている場合:
 
 ```html
 <script>
@@ -234,11 +230,11 @@ If you are currently accessing the `Alpine` global object from a script tag like
 </script>
 ```
 
-You may continue to do so, as Livewire internally includes and registers Alpine's global object like before.
+Livewireは内部的にAlpineのグローバルオブジェクトを以前と同様に含めて登録しているため、そのまま続行できます。
 
-### Including via JS bundle
+### JSバンドル経由で含める場合
 
-If you have included Alpine or any of the popular core Alpine plugins mentioned above via NPM into your applications JavaScript bundle like so:
+Alpineや上記の人気のあるコアAlpineプラグインをNPMを介してアプリケーションのJavaScriptバンドルに次のように含めている場合:
 
 ```js
 // Warning: this is a snippet of the Livewire 2 approach to including Alpine
@@ -251,11 +247,11 @@ Alpine.plugin(intersect)
 Alpine.start()
 ```
 
-You can remove them entirely, because Livewire includes Alpine and many popular Alpine plugins by default.
+LivewireはデフォルトでAlpineや多くの人気のあるAlpineプラグインを含んでいるため、完全に削除できます。
 
-#### Accessing Alpine via JS bundle
+#### JSバンドル経由でAlpineにアクセスする場合
 
-If you are registering custom Alpine plugins or components inside your application's JavaScript bundle like so:
+アプリケーションのJavaScriptバンドル内でカスタムAlpineプラグインやコンポーネントを次のように登録している場合:
 
 ```js
 // Warning: this is a snippet of the Livewire 2 approach to including Alpine
@@ -268,9 +264,9 @@ Alpine.plugin(customPlugin)
 Alpine.start()
 ```
 
-You can still accomplish this by importing the Livewire core ESM module into your bundle and accessing `Alpine` from there.
+アプリケーションのバンドルにLivewireコアのESMモジュールをインポートし、そこから `Alpine` にアクセスすることで、引き続きこれを実現できます。
 
-To import Livewire into your bundle, you must first disable Livewire's normal JavaScript injection and provide the necessary configuration to Livewire by replacing `@livewireScripts` with `@livewireScriptConfig` in your application's primary layout:
+アプリケーションのバンドルにLivewireをインポートするには、まずLivewireの通常のJavaScriptインジェクションを無効にし、アプリケーションの主要なレイアウトで `@livewireScripts` を `@livewireScriptConfig` に置き換えて、Livewireに必要な設定を提供する必要があります。
 
 ```blade
     <!-- ... -->
@@ -280,7 +276,7 @@ To import Livewire into your bundle, you must first disable Livewire's normal Ja
 </body>
 ```
 
-Now, you can import `Alpine` and `Livewire` into your application's bundle like so:
+これで、次のようにアプリケーションのバンドルに `Alpine` と `Livewire` をインポートできます。
 
 ```js
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
@@ -291,56 +287,57 @@ Alpine.plugin(customPlugin)
 Livewire.start()
 ```
 
-Notice you no longer need to call `Alpine.start()`. Livewire will start Alpine automatically.
+もはや `Alpine.start()` を呼び出す必要はありません。Livewireが自動的にAlpineを開始します。
 
-For more information, please consult our documentation on [manually bundling Livewire's JavaScript](/docs/installation#manually-bundling-livewire-and-alpine).
+詳細については、[LivewireのJavaScriptを手動でバンドルする](/docs/installation#manually-bundling-livewire-and-alpine) に関するドキュメントを参照してください。
 
 ## `wire:model`
 
-In Livewire 3, `wire:model` is "deferred" by default (instead of by `wire:model.defer`). To achieve the same behavior as `wire:model` from Livewire 2, you must use `wire:model.live`.
+Livewire 3では、`wire:model` はデフォルトで「deferred」（遅延）になりました（従来の `wire:model.defer` の代わり）。Livewire 2の `wire:model` と同じ動作を実現するには、`wire:model.live` を使用してください。
 
-Below is a list of the necessary substitutions you will need to make in your templates to keep your application's behavior consistent:
+アプリケーションの挙動を維持するために、テンプレート内で以下の置換が必要です:
+
 
 ```html
-<input wire:model="..."> <!-- [tl! remove] -->
-<input wire:model.live="..."> <!-- [tl! add] -->
+- <input wire:model="...">
++ <input wire:model.live="...">
 
-<input wire:model.defer="..."> <!-- [tl! remove] -->
-<input wire:model="..."> <!-- [tl! add] -->
+- <input wire:model.defer="...">
++ <input wire:model="...">
 
-<input wire:model.lazy="..."> <!-- [tl! remove] -->
-<input wire:model.blur="..."> <!-- [tl! add] -->
+- <input wire:model.lazy="...">
++ <input wire:model.blur="...">
 ```
 
 ## `@entangle`
 
-Similar to the changes to `wire:model`, Livewire 3 defers all data binding by default. To match this behavior, `@entangle` has been updated as well.
+`wire:model` の変更と同様に、Livewire 3ではすべてのデータバインディングがデフォルトで遅延されます。この挙動に合わせて、`@entangle` も更新されています。
 
-To keep your application running as expected, make the following `@entangle` substitutions:
+アプリケーションの動作を維持するため、以下の `@entangle` の置換を行ってください:
 
 ```blade
-@entangle(...) <!-- [tl! remove] -->
-@entangle(...).live <!-- [tl! add] -->
+- @entangle(...)
++ @entangle(...).live
 
-@entangle(...).defer <!-- [tl! remove] -->
-@entangle(...) <!-- [tl! add] -->
+- @entangle(...).defer
++ @entangle(...)
 ```
 
-## Events
+## イベント（Events）
 
-In Livewire 2, Livewire had two different PHP methods for triggering events:
+Livewire 2では、イベントをトリガーするために2つの異なるPHPメソッドが用意されていました:
 
 * `emit()`
 * `dispatchBrowserEvent()`
 
-Livewire 3 has unified these two methods into a single method:
+Livewire 3では、これら2つのメソッドが1つのメソッドに統合されました:
 
 * `dispatch()`
 
-Here is a basic example of dispatching and listening for an event in Livewire 3:
+以下は、Livewire 3でイベントをディスパッチし、リッスンする基本的な例です:
 
 ```php
-// Dispatching...
+// ディスパッチ側...
 class CreatePost extends Component
 {
     public Post $post;
@@ -351,7 +348,7 @@ class CreatePost extends Component
     }
 }
 
-// Listening...
+// リスナー側...
 class Dashboard extends Component
 {
     #[On('post-created')]
@@ -362,15 +359,15 @@ class Dashboard extends Component
 }
 ```
 
-The three main changes from Livewire 2 are:
+Livewire 2からの主な変更点は次の3つです:
 
-1. `emit()` has been renamed to `dispatch()` (Likewise `emitTo()` and `emitSelf()` are now `dispatchTo()` and `dispatchSelf()`)
-2. `dispatchBrowserEvent()` has been renamed to `dispatch()`
-3. All event parameters must be named
+1. `emit()` は `dispatch()` に名称変更されました（同様に `emitTo()` と `emitSelf()` は `dispatchTo()` と `dispatchSelf()` になりました）
+2. `dispatchBrowserEvent()` は `dispatch()` に名称変更されました
+3. すべてのイベントパラメータは名前付きで指定する必要があります
 
-For more information, check out the new [events documentation page](/docs/events).
+詳細は新しい[イベントのドキュメント](/docs/events)をご覧ください。
 
-Here are the "find and replace" differences that should be applied to your application:
+アプリケーションに適用すべき「検索と置換」の例は以下の通りです:
 
 ```php
 $this->emit('post-created'); // [tl! remove]
@@ -408,20 +405,20 @@ $this->dispatch('post-created', postId: $post->id); // [tl! add]
 
 ### `emitUp()`
 
-The concept of `emitUp` has been removed entirely. Events are now dispatched using browser events and therefore will "bubble up" by default.
+`emitUp` の概念は完全に削除されました。イベントはブラウザイベントとしてディスパッチされるため、デフォルトで「バブルアップ」します。
 
-You can remove any instances of `$this->emitUp(...)` or `$emitUp(...)` from your components.
+コンポーネント内の `$this->emitUp(...)` や `$emitUp(...)` の記述は削除してください。
 
-### Testing events
+### イベントのテスト
 
-Livewire has also changed event assertions to match the new unified terminology regarding dispatching events:
+Livewireでは、イベントのディスパッチに関する用語統一に合わせて、イベントアサーションも変更されました:
 
 ```php
 Livewire::test(Component::class)->assertEmitted('post-created'); // [tl! remove]
 Livewire::test(Component::class)->assertDispatched('post-created'); // [tl! add]
 
 Livewire::test(Component::class)->assertEmittedTo(Foo::class, 'post-created'); // [tl! remove]
-Livewire::test(Component::class)->assertDispatchedTo(Foo:class, 'post-created'); // [tl! add]
+Livewire::test(Component::class)->assertDispatchedTo(Foo::class, 'post-created'); // [tl! add]
 
 Livewire::test(Component::class)->assertNotEmitted('post-created'); // [tl! remove]
 Livewire::test(Component::class)->assertNotDispatched('post-created'); // [tl! add]
@@ -429,11 +426,11 @@ Livewire::test(Component::class)->assertNotDispatched('post-created'); // [tl! a
 Livewire::test(Component::class)->assertEmittedUp() // [tl! remove]
 ```
 
-### URL query string
+### URLクエリストリング
 
-In previous Livewire versions, if you bound a property to the URL's query string, the property value would always be present in the query string, unless you used the `except` option.
+以前のLivewireバージョンでは、プロパティをURLのクエリストリングにバインドすると、`except` オプションを使わない限り、その値が常にクエリストリングに表示されていました。
 
-In Livewire 3, all properties bound to the query string will only show up if their value has been changed after the page load. This default removes the need for the `except` option:
+Livewire 3では、クエリストリングにバインドされたすべてのプロパティは、ページ読み込み後に値が変更された場合のみクエリストリングに表示されます。このデフォルトにより、`except` オプションは不要になりました。
 
 ```php
 public $search = '';
@@ -444,59 +441,60 @@ protected $queryString = [
 ];
 ```
 
-If you'd like to revert back to the Livewire 2 behavior of always showing a property in the query string no matter its value, you can use the `keep` option:
+常に値に関係なくクエリストリングにプロパティを表示したい場合は、`keep` オプションを使用できます:
 
 ```php
 public $search = '';
 
 protected $queryString = [
-    'search' => ['keep' => true], // [tl! highlight]
+    // highlight-next-line
+    'search' => ['keep' => true],
 ];
 ```
 
-## Pagination
+## ページネーション
 
-The pagination system has been updated in Livewire 3 to better support multiple paginators within the same component.
+Livewire 3では、同一コンポーネント内で複数のページネーターをより良くサポートするため、ページネーションシステムが更新されました。
 
-### Update published pagination views
+### 公開済みページネーションビューの更新
 
-If you've published Livewire's pagination views, you can reference the new ones in the [pagination directory on GitHub](https://github.com/livewire/livewire/tree/master/src/Features/SupportPagination/views) and update your application accordingly.
+Livewireのページネーションビューを公開している場合は、[GitHubのpaginationディレクトリ](https://github.com/livewire/livewire/tree/master/src/Features/SupportPagination/views)にある新しいものを参照し、アプリケーションを更新してください。
 
-### Accessing `$this->page` directly
+### `$this->page` への直接アクセス
 
-Because Livewire now supports multiple paginators per component, it has removed the `$page` property from the component class and replaced it with a `$paginators` property that stores an array of paginators:
+Livewireは、1つのコンポーネントで複数のページネーターをサポートするようになったため、コンポーネントクラスから `$page` プロパティを削除し、代わりにページネーターの配列を格納する `$paginators` プロパティを導入しました:
 
 ```php
 $this->page = 2; // [tl! remove]
 $this->paginators['page'] = 2; // [tl! add]
 ```
 
-However, it is recommended that you use the provided `getPage` and `setPage` methods to modify and access the current page:
+ただし、現在のページの取得や変更には、用意されている `getPage` および `setPage` メソッドの利用が推奨されます:
 
 ```php
-// Getter...
+// ゲッター...
 $this->getPage();
 
-// Setter...
+// セッター...
 $this->setPage(2);
 ```
 
 ### `wire:click.prefetch`
 
-Livewire's prefetching feature (`wire:click.prefetch`) has been removed entirely. If you depended on this feature, your application will still work, it will just be slightly less performant in the instances where you were previously benefiting from `.prefetch`.
+Livewireのプリフェッチ機能（`wire:click.prefetch`）は完全に削除されました。この機能に依存していた場合でも、アプリケーションは引き続き動作しますが、以前 `.prefetch` で得られていた一部のパフォーマンス向上はなくなります。
 
 ```html
 <button wire:click.prefetch=""> <!-- [tl! remove] -->
 <button wire:click="..."> <!-- [tl! add] -->
 ```
 
-## Component class changes
+## コンポーネントクラスの変更
 
-The following changes have been made to Livewire's base `Livewire\Component` class that your application's components may have relied on.
+アプリケーションのコンポーネントが依存していた可能性のある、Livewireのベース `Livewire\Component` クラスに対して以下の変更が行われました。
 
-### The component `$id` property
+### コンポーネント `$id` プロパティ
 
-If you accessed the component's ID directly via `$this->id`, you should instead use `$this->getId()`:
+コンポーネントのIDに直接 `$this->id` でアクセスしていた場合は、代わりに `$this->getId()` を使用してください:
 
 ```php
 $this->id; // [tl! remove]
@@ -504,11 +502,11 @@ $this->id; // [tl! remove]
 $this->getId(); // [tl! add]
 ```
 
-### Duplicate method and property names
+### 重複したメソッドとプロパティ名
 
-PHP allows you to use the same name for both a class property and method. In Livewire 3, this will cause problems when calling methods from the frontend via `wire:click`.
+PHPでは、クラスプロパティとメソッドに同じ名前を使用することが許可されています。Livewire 3では、これにより `wire:click` を介してフロントエンドからメソッドを呼び出す際に問題が発生します。
 
-It is strongly recommended that you use distinct names for all public methods and properties in a component:
+コンポーネント内のすべての公開メソッドとプロパティに異なる名前を使用することを強くお勧めします:
 
 ```php
 public $search = ''; // [tl! remove]
@@ -526,22 +524,22 @@ public function search() {
 }
 ```
 
-## JavaScript API changes
+## JavaScript APIの変更
 
 ### `livewire:load`
 
-In previous versions of Livewire, you could listen for the `livewire:load` event to execute JavaScript code immediately before Livewire initialized the page.
+以前のLivewireバージョンでは、`livewire:load` イベントをリッスンして、Livewireがページを初期化する直前にJavaScriptコードを即座に実行することができました。
 
-In Livewire 3, that event name has been changed to `livewire:init` to match Alpine's `alpine:init`:
+Livewire 3では、そのイベント名がAlpineの `alpine:init` に合わせて `livewire:init` に変更されました:
 
 ```js
 document.addEventListener('livewire:load', () => {...}) // [tl! remove]
 document.addEventListener('livewire:init', () => {...}) // [tl! add]
 ```
 
-### Page expired hook
+### ページ期限切れフック
 
-In version 2, Livewire exposed a dedicated JavaScript method for customizing the page expiration behavior: `Livewire.onPageExpired()`. This method has been removed in favor of using the more powerful `request` hooks directly:
+バージョン2では、Livewireはページの期限切れ動作をカスタマイズするための専用のJavaScriptメソッド: `Livewire.onPageExpired()` を公開していました。このメソッドは、より強力な `request` フックを直接使用するように変更されました:
 
 ```js
 Livewire.onPageExpired(() => {...}) // [tl! remove]
@@ -557,11 +555,11 @@ Livewire.hook('request', ({ fail }) => { // [tl! add:8]
 })
 ```
 
-### New lifecycle hooks
+### 新しいライフサイクルフック
 
-Many of Livewire's internal JavaScript lifecycle hooks have been changed in Livewire 3.
+Livewire 3では、Livewireの内部JavaScriptライフサイクルフックの多くが変更されました。
 
-Here is a comparison of the old hooks and their new syntaxes for you to find/replace in your application:
+以下は、古いフックと新しい構文の比較です。アプリケーション内で検索/置換する際の参考にしてください:
 
 ```js
 Livewire.hook('component.initialized', (component) => {}) // [tl! remove]
@@ -601,13 +599,13 @@ Livewire.hook('commit', ({ component, commit, respond, succeed, fail }) => { // 
 })
 ```
 
-You may consult the new [JavaScript hook documentation](/docs/javascript) for a more thorough understanding of the new hook system.
+あなたは新しい [JavaScriptフックのドキュメント](/docs/javascript) を参照して、新しいフックシステムをより徹底的に理解することができます。
 
-## Localization
+## ローカリゼーション
 
-If your application uses a locale prefix in the URI such as `https://example.com/en/...`, Livewire 2 automatically preserved this URL prefix when making component updates via `https://example.com/en/livewire/update`.
+アプリケーションが `https://example.com/en/...` のようにURIにロケールプレフィックスを使用している場合、Livewire 2ではコンポーネントの更新時に自動的にこのURLプレフィックスが保持されていました。
 
-Livewire 3 has stopped supporting this behavior automatically. Instead, you can override Livewire's update endpoint with any URI prefixes you need using `setUpdateRoute()`:
+Livewire 3では、この動作は自動的にはサポートされなくなりました。代わりに、必要なURIプレフィックスでLivewireの更新エンドポイントをオーバーライドすることができます `setUpdateRoute()` を使用して:
 
 ```php
 Route::group(['prefix' => LaravelLocalization::setLocale()], function ()
@@ -620,4 +618,4 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function ()
 });
 ```
 
-For more information, please consult our documentation on [configuring Livewire's update endpoint](/docs/installation#configuring-livewires-update-endpoint).
+詳細については、[Livewireの更新エンドポイントの設定](/docs/installation#configuring-livewires-update-endpoint) に関するドキュメントをご覧ください。

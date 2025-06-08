@@ -35,7 +35,8 @@ class Dashboard extends Component
 <div>
     <h1>Dashboard</h1>
 
-    <livewire:todo-list /> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <livewire:todo-list />
 </div>
 ```
 
@@ -110,7 +111,8 @@ class TodoCount extends Component
 上記の例の`mount()`メソッドが冗長に感じる場合、プロパティ名とパラメータ名が一致していれば省略できます：
 
 ```php
-public $todos; // [tl! highlight]
+// highlight-next-line
+public $todos;
 ```
 :::
 
@@ -201,7 +203,8 @@ use App\Models\Todo;
 
 class TodoCount extends Component
 {
-    #[Reactive] // [tl! highlight]
+    // highlight-next-line
+    #[Reactive]
     public $todos;
 
     public function render()
@@ -258,7 +261,8 @@ class TodoList extends Component
 <div>
     <h1>Todos</h1>
 
-    <livewire:todo-input wire:model="todo" /> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <livewire:todo-input wire:model="todo" />
 
     <button wire:click="add">Add Todo</button>
 
@@ -282,7 +286,8 @@ use Livewire\Attributes\Modelable;
 
 class TodoInput extends Component
 {
-    #[Modelable] // [tl! highlight]
+    // highlight-next-line
+    #[Modelable]
     public $value = '';
 
     public function render()
@@ -363,7 +368,8 @@ use Livewire\Attributes\On;
 
 class TodoList extends Component
 {
-    #[On('remove-todo')] // [tl! highlight]
+    // highlight-next-line
+    #[On('remove-todo')]
     public function remove($todoId)
     {
         $todo = Todo::find($todoId);
@@ -398,7 +404,8 @@ class TodoItem extends Component
 
     public function remove()
     {
-        $this->dispatch('remove-todo', todoId: $this->todo->id); // [tl! highlight]
+        // highlight-next-line
+        $this->dispatch('remove-todo', todoId: $this->todo->id);
     }
 
     public function render()
@@ -549,7 +556,8 @@ class StepOne extends Component
 <livewire:is :component="$current" :key="$current" />
 ```
 
-:::warning 各子コンポーネントに一意のキーを割り当てるのを忘れないでください。Livewireは`<livewire:dynamic-child />`および`<livewire:is />`に自動的にキーを生成しますが、そのキーは_すべての_子コンポーネントに適用されるため、後続のレンダリングがスキップされることになります。
+:::warning
+それぞれの子コンポーネントに一意のキーを割り当てるのを忘れないでください。Livewireは`<livewire:dynamic-child />`および`<livewire:is />`に自動的にキーを生成しますが、そのキーは_すべての_子コンポーネントに適用されるため、後続のレンダリングがスキップされることになります。
 
 コンポーネントのレンダリングに対するキーの影響をより深く理解するには、[子コンポーネントの再レンダリングを強制する](#forcing-a-child-component-to-re-render)を参照してください。
 :::
@@ -592,7 +600,7 @@ class SurveyQuestion extends Component
 ```
 
 :::warning
-もちろん、再帰コンポーネントには標準の再帰ルールが適用されます。最も重要なのは、テンプレート内にテンプレートが無限に再帰しないようにするロジックが必要であることです。上記の例では、もし`$subQuestion`が自分自身の`$subQuestion`として元の質問を含んでいた場合、無限ループが発生します。
+再帰コンポーネントには標準の再帰ルールが適用されます。最も重要なのは、テンプレート内にテンプレートが無限に再帰しないようにするロジックが必要であることです。上記の例では、もし`$subQuestion`が自分自身の`$subQuestion`として元の質問を含んでいた場合、無限ループが発生します。
 :::
 
 ## 子コンポーネントの再レンダリングの強制

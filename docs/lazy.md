@@ -225,7 +225,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\Attributes\Lazy;
 
-#[Lazy(isolate: false)] // [tl! highlight]
+// highlight-next-line
+#[Lazy(isolate: false)]
 class Revenue extends Component
 {
     // ...
@@ -277,7 +278,8 @@ class DashboardTest extends TestCase
 {
     public function test_renders_successfully()
     {
-        Livewire::withoutLazyLoading() // [tl! highlight]
+        // highlight-next-line
+        Livewire::withoutLazyLoading()
             ->test(Dashboard::class)
             ->assertSee(...);
     }

@@ -2,19 +2,9 @@
 title: トラブルシューティング
 ---
 
-Livewire HQ では、みなさんが問題に直面する前にできる限り障害を取り除くよう努めています。しかし、時には新たな問題を生み出さずに解決できないケースや、予期できない問題も発生します。
+Livewire HQ 問題に直面する前にできる限り障害を取り除くよう努めています。しかし、時には新たな問題を生み出さずに解決できないケースや、予期できない問題も発生します。
 
 ここでは、Livewire アプリでよく遭遇するエラーやシナリオを紹介します。
-
-:::tip
-キャッシュクリアの推奨
-問題が発生した場合は、まずキャッシュをクリアしてみてください。
-:::
-
-:::info
-バージョン互換性
-Livewireのバージョンによっては一部の機能が異なる場合があります。
-:::
 
 ## コンポーネントの不一致
 
@@ -36,7 +26,8 @@ Blade テンプレートで `@foreach` などのループを使う場合は、�
 
 ```blade
 @foreach($posts as $post)
-    <div wire:key="{{ $post->id }}"> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <div wire:key="{{ $post->id }}">
         ...
     </div>
 @endforeach
@@ -48,7 +39,8 @@ Blade テンプレートで `@foreach` などのループを使う場合は、�
 
 ```blade
 @foreach($posts as $post)
-    <livewire:show-post :$post :key="$post->id" /> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <livewire:show-post :$post :key="$post->id" />
 @endforeach
 ```
 
@@ -60,7 +52,8 @@ Blade テンプレートで `@foreach` などのループを使う場合は、�
 @foreach($posts as $post)
     <div wire:key="{{ $post->id }}">
         ...
-        <livewire:show-post :$post :key="$post->id" /> <!-- [tl! highlight] -->
+        <!-- highlight-next-line -->
+        <livewire:show-post :$post :key="$post->id" />
         ...
     </div>
 @endforeach
@@ -77,11 +70,13 @@ Blade テンプレートで `@foreach` などのループを使う場合は、�
 ```blade
 <div>
     @foreach($posts as $post)
-        <div wire:key="post-{{ $post->id }}">...</div> <!-- [tl! highlight] -->
+        <!-- highlight-next-line -->
+        <div wire:key="post-{{ $post->id }}">...</div>
     @endforeach
 
     @foreach($authors as $author)
-        <div wire:key="author-{{ $author->id }}">...</div> <!-- [tl! highlight] -->
+        <!-- highlight-next-line -->
+        <div wire:key="author-{{ $author->id }}">...</div>
     @endforeach
 </div>
 ```

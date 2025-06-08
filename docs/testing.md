@@ -272,7 +272,8 @@ use App\Models\Post;
 
 class SearchPosts extends Component
 {
-    #[Url] // [tl! highlight]
+    // highlight-next-line
+    #[Url]
     public $search = '';
 
     public function render()
@@ -283,6 +284,8 @@ class SearchPosts extends Component
     }
 }
 ```
+
+上記の`$search`プロパティは、Livewireの`#[Url]`属性を使うことで、その値がURLに保存されることを示しています。
 
 このコンポーネントが特定のクエリパラメータを必要とする場合、テストでは次のように手動で設定できます：
 
@@ -336,6 +339,8 @@ class Cart extends Component
     }
 }
 ```
+
+上記の`$discountToken`プロパティは、リクエストのクッキーから値を取得しています。
 
 このコンポーネントが特定のクッキーを必要とする場合、テストでは次のように手動で設定できます：
 
@@ -479,6 +484,11 @@ class UpdatePostTest extends TestCase
 
 また、アクションによってトリガーされた明示的なステータスコードをテストすることもできます。例えば、認証エラーの場合は`assertStatus(401)`、権限エラーの場合は`assertStatus(403)`のように記述します。
 
+```php
+->assertStatus(401); // Unauthorized
+->assertStatus(403); // Forbidden
+```
+
 ### リダイレクト
 
 Livewireアクションがリダイレクトを行ったかをテストするには、`assertRedirect()`メソッドを使用します：
@@ -538,6 +548,37 @@ class CreatePostTest extends TestCase
 ```
 
 イベントがパラメータ付きでディスパッチされる場合、その値を検証することも役立ちます。例えば、`ShowPosts`コンポーネントが`banner-message`イベントを`message`パラメータ付きでディスパッチする場合を考えてみましょう：
+
+```php
+<?php
+
+namespace Tests\Feature\Livewire;
+
+use App\Livewire\PostCountBadge;
+use App\Livewire\CreatePost;
+use Livewire\Livewire;
+use Tests\TestCase;
+
+class PostCountBadgeTest extends TestCase
+{
+    public function test_post_count_is_updated_when_event_is_dispatched()
+    {
+        $badge = Livewire::test(PostCountBadge::class)
+            ->assertSee("0");
+
+        Livewire::test(CreatePost::class)
+            ->set('title', 'Tear-free: the greatest lie ever told')
+            ->set('content', '...')
+            ->call('save')
+            ->assertDispatched('post-created');
+
+        $badge->dispatch('post-created')
+            ->assertSee("1");
+    }
+}
+```
+
+イベントが1つ以上のパラメータ付きでディスパッチされたことを検証したい場合もあります。ここでは、`ShowPosts`コンポーネントが`banner-message`というイベントを`message`パラメータ付きでディスパッチする例を見てみましょう：
 
 ```php
 <?php
@@ -640,3 +681,18 @@ Livewireは多くのテストユーティリティを提供しています。以
 | `assertHasNoErrors('title')`                          | `title`プロパティにバリデーションエラーがないことをアサート                                                                                                                  |
 | `assertHasNoErrors(['title' => ['required', 'min:6']])` | 指定したバリデーションルールが`title`プロパティに対して失敗していないことをアサート                                                                                                    |
 | `assertRedirect()`                                    | コンポーネント内でリダイレクトがトリガーされたことをアサート
+| `assertRedirect('/posts')`                            | コンポーネントが`/posts`エンドポイントへのリダイレクトをトリガーしたことをアサート                                                                 |
+| `assertRedirect(ShowPosts::class)`                    | コンポーネントが`ShowPosts`コンポーネントへのリダイレクトをトリガーしたことをアサート                                                             |
+| `assertRedirectToRoute('name', ['parameters'])`       | コンポーネントが指定したルートへのリダイレクトをトリガーしたことをアサート                                                                       |
+| `assertNoRedirect()`                                  | リダイレクトがトリガーされていないことをアサート                                                                                                 |
+| `assertViewHas('posts')`                              | `render()`メソッドがビューに`posts`項目を渡したことをアサート                                                                                   |
+| `assertViewHas('postCount', 3)`                       | ビューに`postCount`変数が値`3`で渡されたことをアサート                                                                                           |
+| `assertViewHas('posts', function ($posts) { ... })`   | `posts`ビュー変数が存在し、コールバックで宣言されたアサーションを満たすことをアサート                                                            |
+| `assertViewIs('livewire.show-posts')`                 | コンポーネントのrenderメソッドが指定したビュー名を返したことをアサート                                                                           |
+| `assertFileDownloaded()`                              | ファイルのダウンロードがトリガーされたことをアサート                                                                                             |
+| `assertFileDownloaded($filename)`                     | 指定したファイル名のダウンロードがトリガーされたことをアサート                                                                                   |
+| `assertNoFileDownloaded()`                            | ファイルのダウンロードがトリガーされていないことをアサート                                                                                       |
+| `assertUnauthorized()`                                | コンポーネント内で認可例外（ステータスコード: 401）がスローされたことをアサート                                                                  |
+| `assertForbidden()`                                   | ステータスコード403のエラー応答がトリガーされたことをアサート                                                                                    |
+| `assertStatus(500)`                                   | 最新のレスポンスが指定したステータスコード（ここでは500）と一致することをアサート                                                                |
+

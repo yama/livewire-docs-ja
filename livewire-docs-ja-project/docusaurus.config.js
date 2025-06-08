@@ -1,8 +1,8 @@
 module.exports = {
   title: 'Livewire 日本語ドキュメント',
   tagline: 'Livewire公式ドキュメント日本語訳',
-  url: 'https://your-site-url.com', // Replace with your site's URL
-  baseUrl: '/',
+  url: 'https://yama.github.io', // Replace with your site's URL
+  baseUrl: '/livewire-docs-ja/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -39,7 +39,7 @@ module.exports = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/your-github-username/livewire-docs-ja',
+              href: 'https://github.com/yama/livewire-docs-ja',
             },
           ],
         },
@@ -53,12 +53,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/your-github-username/livewire-docs-ja/edit/main/',
+          editUrl: 'https://github.com/yama/livewire-docs-ja/edit/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: 'https://github.com/your-github-username/livewire-docs-ja/edit/main/',
+          editUrl: 'https://github.com/yama/livewire-docs-ja/edit/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

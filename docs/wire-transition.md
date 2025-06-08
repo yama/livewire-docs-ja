@@ -26,7 +26,8 @@ class ShowPost extends Component
     <button wire:click="$set('showComments', true)">Show comments</button>
 
     @if ($showComments)
-        <div wire:transition> <!-- [tl! highlight] -->
+        <!-- highlight-next-line -->
+        <div wire:transition>
             @foreach ($post->comments as $comment)
                 <!-- ... -->
             @endforeach
@@ -187,7 +188,6 @@ Livewireが内部的に使うCSSは、以下の修飾子を組み合わせて自
         </div>
     </div>
 </div>
-```
 
 :::tip Livewireは内部的にAlpineのトランジションを利用
 `wire:transition`を使うと、Livewireは内部的にAlpineの`x-transition`ディレクティブを適用します。Alpineのトランジション構文もほぼそのまま使えるので、[Alpine公式ドキュメント](https://alpinejs.dev/directives/transition)も参考にしてください。

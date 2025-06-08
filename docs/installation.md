@@ -84,7 +84,8 @@ Livewireは独自の更新ルートを登録できるため、`setUpdateRoute()`
 ```php
 Livewire::setUpdateRoute(function ($handle) {
 	return Route::post('/custom/livewire/update', $handle)
-        ->middleware([...]); // [tl! highlight]
+        // highlight-next-line
+        ->middleware([...]);
 });
 ```
 
@@ -138,7 +139,8 @@ Alpine.start()
 <body>
     {{ $slot }}
 
-    @livewireScriptConfig <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    @livewireScriptConfig
 </body>
 </html>
 ```

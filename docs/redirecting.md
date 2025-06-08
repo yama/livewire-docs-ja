@@ -33,7 +33,8 @@ class CreatePost extends Component
 			'content' => $this->content,
 		]);
 
-		$this->redirect('/posts'); // [tl! highlight]
+        // highlight-next-line
+		$this->redirect('/posts');
     }
 
     public function render()

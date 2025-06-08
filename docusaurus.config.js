@@ -20,15 +20,15 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://yama.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/livewire-docs-ja/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'yama', // Usually your GitHub org/user name.
+  projectName: 'livewire-docs-ja', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -49,21 +49,6 @@ const config = {
         docs: {
           sidebarPath: './sidebars.js',
           sidebarItemsGenerator: undefined, // 明示的なサイドバーを利用
-        },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -90,7 +75,6 @@ const config = {
             position: 'left',
             label: 'ドキュメント',
           },
-          {to: '/blog', label: 'ブログ', position: 'left'},
           {
             href: 'https://github.com/livewire/docs',
             label: 'GitHub',
@@ -104,10 +88,6 @@ const config = {
           {
             title: 'ドキュメント',
             items: [
-              {
-                label: 'はじめに',
-                to: '/docs/intro',
-              },
             ],
           },
           {
@@ -131,10 +111,6 @@ const config = {
             title: 'その他',
             items: [
               {
-                label: 'ブログ',
-                to: '/blog',
-              },
-              {
                 label: 'GitHub',
                 href: 'https://github.com/livewire/docs',
               },
@@ -146,6 +122,21 @@ const config = {
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
+        additionalLanguages: ['php', 'bash', 'javascript', 'json', 'css'],
+        magicComments: [
+          {
+            className: 'theme-code-block-highlighted-line',
+            line: 'highlight-next-line',
+          },
+          {
+            className: 'theme-code-block-highlighted-line',
+            line: 'highlight-start',
+          },
+          {
+            className: 'theme-code-block-highlighted-line',
+            line: 'highlight-end',
+          },
+        ],
       },
     }),
 };

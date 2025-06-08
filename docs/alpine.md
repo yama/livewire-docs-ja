@@ -69,7 +69,8 @@ Livewire開発者にとって非常に強力な機能の一つが`$wire`です�
     <input wire:model="content" type="text">
 
     <small>
-        文字数: <span x-text="$wire.content.length"></span> <!-- [tl! highlight] -->
+        <!-- highlight-next-line -->
+        文字数: <span x-text="$wire.content.length"></span>
     </small>
 
     <button type="submit">保存</button>
@@ -86,7 +87,8 @@ Livewire開発者にとって非常に強力な機能の一つが`$wire`です�
 <form wire:submit="save">
     <input wire:model="title" type="text">
 
-    <button type="button" x-on:click="$wire.title = ''">クリア</button> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <button type="button" x-on:click="$wire.title = ''">クリア</button>
 
     <!-- ... -->
 
@@ -113,7 +115,8 @@ Alpineは、`$wire`上で直接メソッドを呼び出すことで、Livewire�
 
 ```html
 <form wire:submit="save">
-    <input wire:model="title" type="text" x-on:blur="$wire.save()">  <!-- [tl! highlight] -->
+    
+    <input wire:model="title" type="text" x-on:blur="$wire.save()">
 
     <!-- ... -->
 
@@ -313,7 +316,8 @@ Livewireバージョン2では、Bladeの`@@entangle`ディレクティブを使
 <body>
     {{ $slot }}
 
-    @livewireScriptConfig <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    @livewireScriptConfig
 </body>
 </html>
 ```

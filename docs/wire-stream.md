@@ -40,7 +40,8 @@ class CountDown extends Component
         <div>
             <button wire:click="begin">Start count-down</button>
 
-            <h1>Count: <span wire:stream="count">{{ $start }}</span></h1> <!-- [tl! highlight] -->
+            <!-- highlight-next-line -->
+            <h1>Count: <span wire:stream="count">{{ $start }}</span></h1>
         </div>
         HTML;
     }
@@ -92,7 +93,8 @@ class ChatBot extends Component
     function ask()
     {
         $this->answer = OpenAI::ask($this->question, function ($partial) {
-            $this->stream(to: 'answer', content: $partial); // [tl! highlight]
+            // highlight-next-line
+            $this->stream(to: 'answer', content: $partial);
         });
     }
 
@@ -112,7 +114,8 @@ class ChatBot extends Component
 
                         <hgroup>
                             <h3>ChatBot</h3>
-                            <p wire:stream="answer">{{ $answer }}</p> <!-- [tl! highlight] -->
+                            <!-- highlight-next-line -->
+                            <p wire:stream="answer">{{ $answer }}</p>
                         </hgroup>
                     </article>
                 @endif

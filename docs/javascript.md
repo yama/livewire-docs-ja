@@ -137,7 +137,6 @@ Livewireは、外部スクリプトからのカスタム拡張ポイントを登
 
 :::info
 `livewire:init`内でカスタム[ディレクティブ](#registering-custom-directives)や[lifecycle hooks](#javascript-hooks)を登録すると、Livewireがページ上で初期化を開始する前にそれらが利用可能になるため、しばしば有益です。
-
 :::
 
 ## `Livewire`グローバルオブジェクト

@@ -26,7 +26,8 @@ class TodoList extends Component
 
     public function mount()
     {
-        $this->todos = Auth::user()->todos; // [tl! highlight]
+        // highlight-next-line
+        $this->todos = Auth::user()->todos;
     }
 
     // ...
@@ -61,9 +62,11 @@ class UpdatePost extends Component
     {
         $this->post = $post;
 
-        $this->fill( // [tl! highlight]
-            $post->only('title', 'description'), // [tl! highlight]
-        ); // [tl! highlight]
+        // highlight-start
+        $this->fill(
+            $post->only('title', 'description'),
+        );
+        // highlight-end
     }
 
     // ...
@@ -104,7 +107,8 @@ class TodoList extends Component
 
 ```blade
 <div>
-    <input type="text" wire:model="todo" placeholder="Todo..."> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <input type="text" wire:model="todo" placeholder="Todo...">
 
     <button wire:click="add">Add Todo</button>
 
@@ -143,7 +147,8 @@ class ManageTodos extends Component
     {
         $this->todos[] = $this->todo;
 
-        $this->reset('todo'); // [tl! highlight]
+        // highlight-next-line
+        $this->reset('todo');
     }
 
     // ...
@@ -177,7 +182,8 @@ class ManageTodos extends Component
 
     public function addTodo()
     {
-        $this->todos[] = $this->pull('todo'); // [tl! highlight]
+        // highlight-next-line
+        $this->todos[] = $this->pull('todo');
     }
 
     // ...
@@ -477,7 +483,8 @@ class UpdatePost extends Component
 
 ```blade
 <form wire:submit="update">
-    <input type="text" wire:model="id"> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <input type="text" wire:model="id">
     <input type="text" wire:model="title">
     <input type="text" wire:model="content">
 
@@ -501,7 +508,8 @@ public function update()
 {
     $post = Post::findOrFail($this->id);
 
-    $this->authorize('update', $post); // [tl! highlight]
+    // highlight-next-line
+    $this->authorize('update', $post);
 
     $post->update(...);
 }
@@ -519,7 +527,8 @@ use Livewire\Component;
 
 class UpdatePost extends Component
 {
-    #[Locked] // [tl! highlight]
+    // highlight-next-line
+    #[Locked]
     public $id;
 
     // ...
@@ -546,7 +555,8 @@ use App\Models\Post;
 
 class UpdatePost extends Component
 {
-    public Post $post; // [tl! highlight]
+    // highlight-next-line
+    public Post $post;
     public $title;
     public $content;
 
@@ -648,7 +658,8 @@ class ShowTodos extends Component
     {
         $this->todos = Auth::user()
             ->todos()
-            ->select(['title', 'content']) // [tl! highlight]
+            // highlight-next-line
+            ->select(['title', 'content'])
             ->get();
     }
 
@@ -680,7 +691,8 @@ use Livewire\Component;
 
 class ShowTodos extends Component
 {
-    #[Computed] // [tl! highlight]
+    // highlight-next-line
+    #[Computed]
     public function todos()
     {
         return Auth::user()

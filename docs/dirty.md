@@ -22,7 +22,8 @@ Livewireでは、`wire:dirty`ディレクティブを使って、ページ上の
 
     <button type="submit">Update</button>
 
-    <div wire:dirty>Unsaved changes...</div> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <div wire:dirty>Unsaved changes...</div>
 </form>
 ```
 
@@ -48,7 +49,8 @@ Livewireでは、`wire:dirty`ディレクティブを使って、ページ上の
 <form wire:submit="update">
     <input wire:model.blur="title">
 
-    <div wire:dirty wire:target="title">Unsaved title...</div> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <div wire:dirty wire:target="title">Unsaved title...</div>
 
     <button type="submit">Update</button>
 </form>

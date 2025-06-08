@@ -38,7 +38,8 @@ class CreatePost extends Component
 ```
 
 ```blade
-<form wire:submit="save"> <!-- [tl! highlight] -->
+<!-- highlight-next-line -->
+<form wire:submit="save">
     <input type="text" wire:model="title">
 
     <textarea wire:model="content"></textarea>
@@ -276,7 +277,8 @@ Livewireは、ページ上の任意の場所にローディングインジケー
 
     <button type="submit">Save</button>
 
-    <span wire:loading>Saving...</span> <!-- [tl! highlight] -->
+    <!-- highlight-next-line -->
+    <span wire:loading>Saving...</span>
 </form>
 ```
 
@@ -324,7 +326,8 @@ class ShowPosts extends Component
             <h1>{{ $post->title }}</h1>
             <span>{{ $post->content }}</span>
 
-            <button wire:click="delete({{ $post->id }})">Delete</button> <!-- [tl! highlight] -->
+            <!-- highlight-next-line -->
+            <button wire:click="delete({{ $post->id }})">Delete</button>
         </div>
     @endforeach
 </div>
@@ -357,7 +360,8 @@ use App\Models\Post;
 
 class ShowPosts extends Component
 {
-    public function delete(Post $post) // [tl! highlight]
+    // highlight-next-line
+    public function delete(Post $post)
     {
         $this->authorize('delete', $post);
 
@@ -388,7 +392,8 @@ use App\Repositories\PostRepository;
 
 class ShowPosts extends Component
 {
-    public function delete(PostRepository $posts, $postId) // [tl! highlight]
+    // highlight-next-line
+    public function delete(PostRepository $posts, $postId)
     {
         $posts->deletePost($postId);
     }
@@ -408,14 +413,14 @@ class ShowPosts extends Component
         <div wire:key="{{ $post->id }}">
             <h1>{{ $post->title }}</h1>
             <span>{{ $post->content }}</span>
-
-            <button wire:click="delete({{ $post->id }})">Delete</button> <!-- [tl! highlight] -->
+            <!-- highlight-next-line -->
+            <button wire:click="delete({{ $post->id }})">Delete</button>
         </div>
     @endforeach
 </div>
 ```
 
-この例では、`delete()`メソッドは、提供された`$postId`パラメータを受け取る前に、コンテナから解決された`PostRepository`のインスタンスを受け取ります。
+この例では、`delete()`メソッドは、提供された`$postId`パラメータを受け取る前に、[コンテナ](https://laravel.com/docs/container#main-content)から解決された`PostRepository`のインスタンスを受け取ります。
 
 ## Alpineからのアクション呼び出し
 
@@ -586,7 +591,8 @@ class CreatePost extends Component
     {
         // ...
 
-        $this->js('onPostSaved'); // [tl! highlight]
+        // highlight-next-line
+        $this->js('onPostSaved');
     }
 }
 ```
@@ -705,7 +711,8 @@ class ShowPost extends Component
         $this->post = $post;
     }
 
-    #[Renderless] // [tl! highlight]
+    // highlight-next-line
+    #[Renderless]
     public function incrementViewCount()
     {
         $this->post->incrementViewCount();
@@ -754,7 +761,8 @@ class ShowPost extends Component
     {
         $this->post->incrementViewCount();
 
-        $this->skipRender(); // [tl! highlight]
+        // highlight-next-line
+        $this->skipRender();
     }
 
     public function render()
@@ -839,7 +847,8 @@ class ShowPosts extends Component
     {
         $post = Post::find($id);
 
-        $this->authorize('delete', $post); // [tl! highlight]
+        // highlight-next-line
+        $this->authorize('delete', $post);
 
         $post->delete();
     }
@@ -961,7 +970,8 @@ class BrowsePosts extends Component
             abort(403);
         }
 
-        $this->delete($id); // [tl! highlight]
+        // highlight-next-line
+        $this->delete($id);
     }
 
     public function delete($postId)  // [tl! highlight:5]
@@ -1017,7 +1027,8 @@ class BrowsePosts extends Component
         $this->delete($id);
     }
 
-    protected function delete($postId) // [tl! highlight]
+    // highlight-next-line
+    protected function delete($postId)
     {
         $post = Post::find($postId);
 
