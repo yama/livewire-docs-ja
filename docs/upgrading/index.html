@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.8.1">
 <title data-rh="true">アップグレード | Livewire 日本語ドキュメント</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://yama.github.io/livewire-docs-ja/img/social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://yama.github.io/livewire-docs-ja/img/social-card.jpg"><meta data-rh="true" property="og:url" content="https://yama.github.io/livewire-docs-ja/docs/upgrading"><meta data-rh="true" property="og:locale" content="ja"><meta data-rh="true" name="docusaurus_locale" content="ja"><meta data-rh="true" name="docsearch:language" content="ja"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="アップグレード | Livewire 日本語ドキュメント"><meta data-rh="true" name="description" content="アップグレード自動化ツール"><meta data-rh="true" property="og:description" content="アップグレード自動化ツール"><link data-rh="true" rel="icon" href="/livewire-docs-ja/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://yama.github.io/livewire-docs-ja/docs/upgrading"><link data-rh="true" rel="alternate" href="https://yama.github.io/livewire-docs-ja/docs/upgrading" hreflang="ja"><link data-rh="true" rel="alternate" href="https://yama.github.io/livewire-docs-ja/docs/upgrading" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"アップグレード","item":"https://yama.github.io/livewire-docs-ja/docs/upgrading"}]}</script><link rel="stylesheet" href="/livewire-docs-ja/assets/css/styles.a03a8b8c.css">
-<script src="/livewire-docs-ja/assets/js/runtime~main.85526861.js" defer="defer"></script>
+<script src="/livewire-docs-ja/assets/js/runtime~main.d97dbf92.js" defer="defer"></script>
 <script src="/livewire-docs-ja/assets/js/main.00587c45.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -44,13 +44,13 @@
 <p>Livewire 3では、以下の設定項目は認識されなくなりました。</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="app_url"><code>app_url</code><a href="#app_url" class="hash-link" aria-label="app_url への直接リンク" title="app_url への直接リンク">​</a></h4>
 <p>アプリケーションがルート以外のURIで提供されている場合、Livewire 2では <code>app_url</code> 設定オプションを使ってLivewireがAJAXリクエストに使用するURLを設定できました。</p>
-<p>しかし、このような文字列による設定は柔軟性に欠けるため、Livewire 3ではランタイム設定方式に変更されました。詳細は<a href="/livewire-docs-ja/docs/installation#configuring-livewires-update-endpoint">Livewireのアップデートエンドポイントの設定</a>に関するドキュメントを参照してください。</p>
+<p>しかし、このような文字列による設定は柔軟性に欠けるため、Livewire 3ではランタイム設定方式に変更されました。詳細は<a href="/livewire-docs-ja/docs/installation#configuring-the-livewire-update-endpoint">Livewireのアップデートエンドポイントの設定</a>に関するドキュメントを参照してください。</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="asset_url"><code>asset_url</code><a href="#asset_url" class="hash-link" aria-label="asset_url への直接リンク" title="asset_url への直接リンク">​</a></h4>
 <p>Livewire 2では、アプリケーションがルート以外のURIで提供されている場合、<code>asset_url</code> 設定オプションを使ってLivewireのJavaScriptアセットのベースURLを設定できました。</p>
 <p>Livewire 3では、こちらもランタイム設定方式に変更されています。詳細は<a href="/livewire-docs-ja/docs/installation#customizing-the-asset-url">Livewireのスクリプトアセットエンドポイントのカスタマイズ</a>に関するドキュメントを参照してください。</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="middleware_group"><code>middleware_group</code><a href="#middleware_group" class="hash-link" aria-label="middleware_group への直接リンク" title="middleware_group への直接リンク">​</a></h4>
 <p>Livewireはアップデートエンドポイントのカスタマイズ方法がより柔軟になったため、<code>middleware_group</code> 設定オプションは削除されました。</p>
-<p>Livewireリクエストにカスタムミドルウェアを適用する方法については、<a href="/livewire-docs-ja/docs/installation#configuring-livewires-update-endpoint">Livewireのアップデートエンドポイントの設定</a>のドキュメントを参照してください。</p>
+<p>Livewireリクエストにカスタムミドルウェアを適用する方法については、<a href="/livewire-docs-ja/docs/installation#configuring-the-livewire-update-endpoint">Livewireのアップデートエンドポイントの設定</a>のドキュメントを参照してください。</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="manifest_path"><code>manifest_path</code><a href="#manifest_path" class="hash-link" aria-label="manifest_path への直接リンク" title="manifest_path への直接リンク">​</a></h4>
 <p>Livewire 3では、コンポーネントのオートローディングにマニフェストファイルを使用しなくなりました。そのため、<code>manifest_path</code> 設定は不要となりました。</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="back_button_cache"><code>back_button_cache</code><a href="#back_button_cache" class="hash-link" aria-label="back_button_cache への直接リンク" title="back_button_cache への直接リンク">​</a></h4>
